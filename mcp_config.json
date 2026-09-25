@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "luck360-sse": {
+      "url": "https://luck360.demandgeniusai.com/sse",
+      "transport": "sse"
+    },
+    "luck360-local-sse": {
+      "url": "http://127.0.0.1:8001/sse",
+      "transport": "sse"
+    },
+    "luck360-stdio": {
+      "command": "C:\\Program Files\\Python311\\python.exe",
+      "args": [
+        "c:\\Users\\DemandGeniusAI\\lottery\\luck360_mcp_server.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  }
+}

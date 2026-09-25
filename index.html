@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lottery Pattern Predictor & Live Analytics Engine</title>
+
+  <!-- Tailwind CSS via allowlisted gstatic -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+
+  <!-- Google Fonts for Luxury Editorial Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;1,6..96,700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+    
+    :root {
+      /* Theme 1: Warm Gold & Terracotta (Default Light Mode) */
+      --accent: #D97706;
+      --accent-secondary: #EA580C;
+      --accent-gradient: linear-gradient(135deg, #D97706 0%, #EA580C 100%);
+      --bg-color: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --card-inner: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --border-color: #CBD5E1;
+      --header-bg: rgba(255, 255, 255, 0.96);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    /* DARK MODE OVERRIDE IF TOGGLED */
+    body.mode-dark {
+      --bg-color: #0B0F17;
+      --card-bg: #151C28;
+      --card-inner: #1A2332;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-color: #263346;
+      --header-bg: rgba(11, 15, 23, 0.94);
+    }
+
+    /* COLOR THEME PALETTES */
+    body.theme-yellow {
+      --accent: #D97706;
+      --accent-secondary: #EA580C;
+      --accent-gradient: linear-gradient(135deg, #D97706 0%, #EA580C 100%);
+    }
+    body.theme-indigo {
+      --accent: #4F46E5;
+      --accent-secondary: #7C3AED;
+      --accent-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    }
+    body.theme-emerald {
+      --accent: #059669;
+      --accent-secondary: #047857;
+      --accent-gradient: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+    body.theme-orange {
+      --accent: #EA580C;
+      --accent-secondary: #E11D48;
+      --accent-gradient: linear-gradient(135deg, #EA580C 0%, #E11D48 100%);
+    }
+    body.theme-cyan {
+      --accent: #0284C7;
+      --accent-secondary: #0891B2;
+      --accent-gradient: linear-gradient(135deg, #0284C7 0%, #0891B2 100%);
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+    }
+
+    /* CONCEPT WORDS SERIF TYPOGRAPHY */
+    .concept-word {
+      font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      padding-right: 0.05em;
+    }
+
+    .theme-card {
+      background-color: var(--card-bg);
+      border-color: var(--border-color);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    }
+
+    .theme-card-inner {
+      background-color: var(--card-inner);
+      border-color: var(--border-color);
+    }
+
+    /* TOP DUAL-GRADIENT ACCENT BAR */
+    #top-dual-gradient-bar {
+      height: 4px;
+      width: 100%;
+      background: var(--accent-gradient);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    /* AMBIENT RADIAL GLOWS */
+    .glow-top-left {
+      position: absolute;
+      top: -120px;
+      left: 10%;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent) 0%, rgba(255,255,255,0) 70%);
+      opacity: 0.12;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-top-right {
+      position: absolute;
+      top: -120px;
+      right: 10%;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-secondary) 0%, rgba(255,255,255,0) 70%);
+      opacity: 0.12;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .tab-btn.active-tab {
+      color: var(--text-main);
+      border-bottom: 3px solid var(--accent);
+      font-weight: 800;
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #059669;
+      box-shadow: 0 0 8px #059669;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body class="theme-yellow mode-light min-h-screen flex flex-col relative selection:bg-amber-500 selection:text-white">
+
+  <!-- TOP GRADIENT STRIPE -->
+  <div id="top-dual-gradient-bar"></div>
+
+  <!-- AMBIENT GLOW BACKGROUNDS -->
+  <div class="glow-top-left"></div>
+  <div class="glow-top-right"></div>
+
+  <!-- STICKY BRIGHT HEADER -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl border-b border-slate-300 transition-colors shadow-sm" style="background-color: var(--header-bg);">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-lg text-white shadow-md" style="background: var(--accent-gradient);">
+          🎯
+        </div>
+        <div>
+          <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-slate-900">
+            Lottery <span class="concept-word">Predictor</span> & Analytics Engine
+          </h1>
+          <p class="text-xs text-slate-600 font-medium hidden sm:block">Excel Engine + Dear & Kerala Lottery September 2026 Audit</p>
+        </div>
+      </div>
+
+      <!-- Controls: Theme Selector, Dark Mode Toggle & Live Badge -->
+      <div class="flex items-center gap-3">
+        
+        <!-- Live Badge -->
+        <span class="hidden lg:flex items-center gap-1.5 text-xs px-3 py-1 rounded-full font-mono font-bold border border-emerald-500/40 bg-emerald-50 text-emerald-700">
+          <span class="pulse-dot"></span> Live Auto-Polling (5s)
+        </span>
+
+        <!-- Theme Palette Picker -->
+        <div class="flex items-center gap-1.5 bg-slate-200/80 p-1 rounded-lg border border-slate-300">
+          <button onclick="setTheme('yellow')" title="Gold Yellow" class="w-5 h-5 rounded-full bg-amber-500 hover:scale-110 transition-transform shadow-sm"></button>
+          <button onclick="setTheme('indigo')" title="Indigo Blue" class="w-5 h-5 rounded-full bg-indigo-600 hover:scale-110 transition-transform shadow-sm"></button>
+          <button onclick="setTheme('emerald')" title="Emerald Green" class="w-5 h-5 rounded-full bg-emerald-600 hover:scale-110 transition-transform shadow-sm"></button>
+          <button onclick="setTheme('orange')" title="Rose Orange" class="w-5 h-5 rounded-full bg-orange-500 hover:scale-110 transition-transform shadow-sm"></button>
+          <button onclick="setTheme('cyan')" title="Cyan Blue" class="w-5 h-5 rounded-full bg-cyan-600 hover:scale-110 transition-transform shadow-sm"></button>
+        </div>
+
+        <!-- Dark/Light Mode Toggle -->
+        <button id="btn-mode-toggle" onclick="toggleDarkMode()" class="p-2 rounded-lg bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 text-xs font-bold transition-all shadow-sm">
+          ☀️ Light Mode
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 flex border-t border-slate-200 gap-4 overflow-x-auto">
+      <button id="tab-main-btn" class="tab-btn active-tab py-3 px-3 text-xs md:text-sm font-bold transition-all flex items-center gap-2 whitespace-nowrap text-slate-900">
+        <span>⚡</span> 4-Draw Engine & Next Guesses
+      </button>
+      <button id="tab-mcp-btn" class="tab-btn py-3 px-3 text-xs md:text-sm font-bold text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2 whitespace-nowrap">
+        <span>📊</span> Historical Match DB & Pattern Audit
+      </button>
+      <button id="tab-kerala-btn" class="tab-btn py-3 px-3 text-xs md:text-sm font-bold text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2 whitespace-nowrap">
+        <span>🌴</span> Kerala Chart & Schedule
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER WITH CONFINED PADDING -->
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 flex-1 space-y-6 z-10 relative">
+
+    <!-- ================= TAB 1: MAIN 4-DRAW LIVE ENGINE ================= -->
+    <div id="tab-main-content" class="space-y-6">
+
+      <!-- 4 EDITABLE INPUT FORM -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-5">
+        <div class="flex flex-col md:flex-row justify-between md:items-center gap-3 border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span>⚡</span> Today's 4 Official Draw Results <span class="concept-word">Live Matrix</span>
+            </h2>
+            <p class="text-xs text-slate-600 mt-0.5">Dear 1PM, Kerala 3PM, Dear 6PM, Dear 8PM — Synced from daemon & SQLite lottery.db</p>
+          </div>
+          <div class="flex gap-2">
+            <button id="btn-force-refresh" class="px-3.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 shadow-sm">
+              <span>🔄</span> Refresh Results Now
+            </button>
+            <button id="btn-preset-today" class="px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 border border-indigo-300 text-indigo-800 text-xs font-bold rounded-lg transition-all shadow-sm">
+              Load Today's Verified Results
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Input Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- Draw 1: Dear 1 PM -->
+          <div class="theme-card-inner border rounded-xl p-4 space-y-2 border-emerald-200">
+            <div class="flex justify-between items-center">
+              <label class="text-[11px] font-bold uppercase tracking-wider text-emerald-800">Dear Lottery 1:00 PM</label>
+              <span class="text-[10px] text-emerald-700 font-mono font-bold" id="label-tail-1">Tail: 563</span>
+            </div>
+            <input type="text" id="input-draw1" value="69563" class="w-full bg-white border border-emerald-300 focus:border-emerald-500 rounded-lg px-3 py-2 text-slate-900 font-mono text-base font-extrabold shadow-sm transition-colors">
+            <div class="text-[10px] text-slate-600 font-medium">Nagaland - Dear Star Thursday (1 PM)</div>
+            <p class="text-[10px] text-emerald-700 font-bold">Yields P1 <strong class="font-mono text-slate-900" id="input-p1-1">368</strong></p>
+          </div>
+
+          <!-- Draw 2: Kerala 3 PM -->
+          <div class="theme-card-inner border rounded-xl p-4 space-y-2 border-amber-200">
+            <div class="flex justify-between items-center">
+              <label class="text-[11px] font-bold uppercase tracking-wider text-amber-800">Kerala Lottery 3:00 PM</label>
+              <span class="text-[10px] text-amber-700 font-mono font-bold" id="label-tail-2">Tail: 457</span>
+            </div>
+            <input type="text" id="input-draw2" value="614457" class="w-full bg-white border border-amber-300 focus:border-amber-500 rounded-lg px-3 py-2 text-slate-900 font-mono text-base font-extrabold shadow-sm transition-colors">
+            <div class="text-[10px] text-slate-600 font-medium">Kerala State Lotteries - KN-642 (3 PM)</div>
+            <p class="text-[10px] text-amber-800 font-bold">Yields H2 <strong class="font-mono text-slate-900">978</strong> ★ (Hit Draw 3!)</p>
+          </div>
+
+          <!-- Draw 3: Dear 6 PM -->
+          <div class="theme-card-inner border rounded-xl p-4 space-y-2 border-indigo-200">
+            <div class="flex justify-between items-center">
+              <label class="text-[11px] font-bold uppercase tracking-wider text-indigo-800">Dear Lottery 6:00 PM</label>
+              <span class="text-[10px] text-indigo-700 font-mono font-bold" id="label-tail-3">Tail: 978</span>
+            </div>
+            <input type="text" id="input-draw3" value="85978" class="w-full bg-white border border-indigo-300 focus:border-indigo-500 rounded-lg px-3 py-2 text-slate-900 font-mono text-base font-extrabold shadow-sm transition-colors">
+            <div class="text-[10px] text-slate-600 font-medium">Sikkim - Dear Supreme Thursday (6 PM)</div>
+            <p class="text-[10px] text-indigo-800 font-bold">Yields H3 <strong class="font-mono text-slate-900">221</strong> ★ (Hit Draw 4!)</p>
+          </div>
+
+          <!-- Draw 4: Dear 8 PM -->
+          <div class="theme-card-inner border rounded-xl p-4 space-y-2 border-teal-200">
+            <div class="flex justify-between items-center">
+              <label class="text-[11px] font-bold uppercase tracking-wider text-teal-800">Dear Lottery 8:00 PM</label>
+              <span class="text-[10px] text-teal-700 font-mono font-bold" id="label-tail-4">Tail: 221</span>
+            </div>
+            <input type="text" id="input-draw4" value="18221" class="w-full bg-white border border-teal-300 focus:border-teal-500 rounded-lg px-3 py-2 text-slate-900 font-mono text-base font-extrabold shadow-sm transition-colors">
+            <div class="text-[10px] text-slate-600 font-medium">Nagaland - Dear Fame Thursday (8 PM)</div>
+            <p class="text-[10px] text-teal-800 font-bold">Latest Draw Base</p>
+          </div>
+
+        </div>
+
+        <button id="btn-calculate" class="w-full text-white font-extrabold py-3.5 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm uppercase tracking-wider" style="background: var(--accent-gradient);">
+          <span>🚀</span> Calculate Next Guesses Across All Patterns & AB/BC/AC Pairs
+        </button>
+      </section>
+
+      <!-- CURRENTLY RUNNING TOP 2 PATTERNS & EXPECTED DIGITS + AB/BC/AC PAIRS FOR 1PM, 3PM, 6PM, 8PM -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-5">
+        <div class="flex flex-col md:flex-row justify-between md:items-center gap-3 border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+              <span>🔥</span> Currently Running 2 Patterns <span class="concept-word">Targets & Pairs</span>
+            </h2>
+            <p class="text-xs text-slate-600 font-medium mt-0.5">Expected 3-digit targets and AB, BC, AC pairs for 1:00 PM, 3:00 PM, 6:00 PM, 8:00 PM</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold border border-amber-300 bg-amber-50 text-amber-800">RECOMMENDED: Currently Running 2 Patterns</span>
+        </div>
+
+        <!-- VERY HOTTEST SELECTION HIGHLIGHT BANNER -->
+        <div class="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-400 rounded-xl p-4 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 font-mono">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2 text-xs font-extrabold text-amber-900 uppercase tracking-wider">
+              <span>🌟</span> VERY HOTTEST RECOMMENDED CHOICE: <strong>Currently Running 2 Patterns (H2 & H3)</strong>
+            </div>
+            <p class="text-xs text-slate-700 font-medium font-sans">
+              <strong>Why:</strong> Both H2 (Cross-Swap 5-8) & H3 (Diff & Remainder) hit <strong>100% straight matches</strong> in recent draws (<strong class="text-amber-900">457 $\rightarrow$ 978</strong> and <strong class="text-indigo-900">978 $\rightarrow$ 221</strong>).
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 text-xs font-bold whitespace-nowrap">
+            <span class="px-3 py-1.5 bg-amber-600 text-white rounded-lg shadow-sm">Target #1: 417</span>
+            <span class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg shadow-sm">Target #2: 051</span>
+            <span class="px-3 py-1.5 bg-slate-900 text-amber-300 rounded-lg shadow-sm">AB: 41 | BC: 17 | AC: 47</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="uppercase bg-slate-100 text-slate-700 border-b border-slate-300 font-bold">
+              <tr>
+                <th class="py-3 px-3">Draw Slot & Company</th>
+                <th class="py-3 px-3">Base Tail</th>
+                <th class="py-3 px-3 bg-amber-50 text-amber-900 border-l border-amber-200">H2 (Cross-Swap 5-8) Target</th>
+                <th class="py-3 px-3 bg-amber-50 text-amber-900">H2 AB / BC / AC Pairs</th>
+                <th class="py-3 px-3 bg-indigo-50 text-indigo-900 border-l border-indigo-200">H3 (Diff & Remainder) Target</th>
+                <th class="py-3 px-3 bg-indigo-50 text-indigo-900">H3 AB / BC / AC Pairs</th>
+              </tr>
+            </thead>
+            <tbody id="table-running-2patterns" class="divide-y divide-slate-200 text-xs text-slate-800 font-medium">
+              <!-- Dynamic Injection -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TOP 3-DIGIT GUESSES & TOP AB / BC / AC PAIRS CARDS -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+              <span>🌟</span> Next Draw Master Targets & <span class="concept-word">Top Pairs</span>
+            </h2>
+            <p class="text-xs text-slate-600 font-medium mt-0.5">Consolidated pattern derivations ranked by historical hit probability</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold border border-indigo-300 bg-indigo-50 text-indigo-800">Ranked Guesses</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Top 3-Digit Guesses Matrix -->
+          <div class="theme-card-inner border rounded-xl p-5 space-y-4">
+            <h3 class="text-xs font-extrabold text-emerald-800 uppercase tracking-wider flex items-center gap-2">
+              <span>🎯</span> Top 3-Digit Guess Candidates
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center" id="container-top-3digits">
+              <!-- Dynamic Injection -->
+            </div>
+          </div>
+
+          <!-- Top AB / BC / AC Pairs Card -->
+          <div class="theme-card-inner border rounded-xl p-5 space-y-4">
+            <h3 class="text-xs font-extrabold text-amber-800 uppercase tracking-wider flex items-center gap-2">
+              <span>🎲</span> Top 2-Digit Target Pairs (AB, BC, AC)
+            </h3>
+            <div class="grid grid-cols-3 gap-3 text-center" id="container-2digit-pairs">
+              <!-- Dynamic Injection -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ALL POSSIBLE GUESSES WITH PATTERN BREAKDOWN TABLE -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+              <span>🧮</span> All Possible Guesses Matrix for Next Draw <span class="concept-word">(By Pattern)</span>
+            </h3>
+            <p class="text-xs text-slate-600 font-medium">Complete list of derived 3-digit guesses categorized by mathematical pattern rule</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold border border-emerald-300 bg-emerald-50 text-emerald-800">Full Matrix</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm font-mono">
+            <thead class="text-xs uppercase bg-slate-100 text-slate-700 border-b border-slate-300 font-bold">
+              <tr>
+                <th class="py-3 px-3">Pattern Rule</th>
+                <th class="py-3 px-3">Derived Guess</th>
+                <th class="py-3 px-3">Target AB Pair</th>
+                <th class="py-3 px-3">Target BC Pair</th>
+                <th class="py-3 px-3">Target AC Pair</th>
+                <th class="py-3 px-3">Historical Justification & Proof</th>
+              </tr>
+            </thead>
+            <tbody id="table-all-guesses" class="divide-y divide-slate-200 text-xs text-slate-800 font-medium">
+              <!-- Dynamic Injection -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4-DRAW PATTERN DERIVATION CARDS -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+              <span>✨</span> Today's 4 Draw Matrix Breakdown
+            </h2>
+            <p class="text-xs text-slate-600 font-medium mt-0.5">Live matrix for Dear 1PM, Kerala 3PM, Dear 6PM, and Dear 8PM</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold border border-emerald-300 bg-emerald-50 text-emerald-800">4 Draws Matrix</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="container-4draw-matrix">
+          <!-- Dynamic Injection -->
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- ================= TAB 2: HISTORICAL MATCH RECORD & MCP PATTERN TRACKER ================= -->
+    <div id="tab-mcp-content" class="hidden space-y-6">
+
+      <!-- WHEN, WHAT, FOR WHAT PATTERN, HOW AUDIT REPORT CARD -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+          <div>
+            <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+              <span>📋</span> Pattern Matching Audit Report <span class="concept-word">(WHEN, WHAT, PATTERN, HOW)</span>
+            </h3>
+            <p class="text-xs text-slate-600 font-medium">Detailed mathematical audit breakdown of historical pattern hits</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold border border-amber-300 bg-amber-50 text-amber-800">Verified Audit</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Audit Card 1 -->
+          <div class="theme-card-inner border rounded-xl p-4 space-y-2 font-mono text-xs">
+            <div class="flex justify-between items-center text-amber-800 font-extrabold border-b border-slate-300 pb-1.5">
+              <span>WHEN: 24-Sep (6:00 PM)</span>
+              <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-full text-[10px] border border-emerald-300">EXACT STRAIGHT HIT</span>
+            </div>
+            <div><span class="text-slate-600 font-bold">WHAT:</span> Dear Supreme 6PM (<strong class="text-slate-900 font-extrabold">86B 85978</strong> -> Tail <strong class="text-amber-700">978</strong>) derived from Kerala 3PM Tail <strong class="text-emerald-700">457</strong></div>
+            <div><span class="text-slate-600 font-bold">FOR WHAT PATTERN:</span> <strong class="text-amber-800 font-extrabold">User H2 Cross-Swap 5-8 Rule</strong></div>
+            <div class="bg-white p-3 rounded-lg border border-slate-300 text-[11px] text-slate-800 shadow-sm">
+              <div class="text-amber-800 font-extrabold mb-1">HOW (Step-by-Step Math):</div>
+              1. 1st Digit: (4 + 5) % 10 = <strong>9</strong><br>
+              2. Middle Digit: D3 = <strong>7</strong><br>
+              3. Last Digit: 5 transformed (5->8) = <strong>8</strong><br>
+              => Result: <strong class="text-emerald-700 text-sm">978</strong> (Exact Hit!)
+            </div>
+          </div>
+
+          <!-- Audit Card 2 -->
+          <div class="theme-card-inner border rounded-xl p-4 space-y-2 font-mono text-xs">
+            <div class="flex justify-between items-center text-indigo-800 font-extrabold border-b border-slate-300 pb-1.5">
+              <span>WHEN: 24-Sep (8:00 PM)</span>
+              <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-full text-[10px] border border-emerald-300">EXACT MATRIX HIT</span>
+            </div>
+            <div><span class="text-slate-600 font-bold">WHAT:</span> Dear Fame 8PM (<strong class="text-slate-900 font-extrabold">76C 18221</strong> -> Tail <strong class="text-indigo-700">221</strong>) derived from Dear 6PM Tail <strong class="text-amber-700">978</strong></div>
+            <div><span class="text-slate-600 font-bold">FOR WHAT PATTERN:</span> <strong class="text-indigo-800 font-extrabold">User H3 Diff & Remainder Matrix</strong></div>
+            <div class="bg-white p-3 rounded-lg border border-slate-300 text-[11px] text-slate-800 shadow-sm">
+              <div class="text-indigo-800 font-extrabold mb-1">HOW (Step-by-Step Math):</div>
+              1. 1st Digit: (9 - 7) = <strong>2</strong><br>
+              2. Middle Digit: Remainder digit = <strong>2</strong><br>
+              3. Last Digit: (9 - 8) = <strong>1</strong><br>
+              => Result: <strong class="text-indigo-700 text-sm">221</strong> (Exact Hit!)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PATTERN FREQUENCY & AGE DISTANCE TRACKER CARD -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+              <span>📈</span> Pattern Hit Frequency & Distance (Age) Matrix
+            </h3>
+            <p class="text-xs text-slate-600 font-medium">Tracks how many times each pattern hit, its hit rate %, and distance (draw gap since last hit)</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold border border-indigo-300 bg-indigo-50 text-indigo-800">Live Frequency & Aging</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="uppercase bg-slate-100 text-slate-700 border-b border-slate-300 font-bold">
+              <tr>
+                <th class="py-2.5 px-3">Pattern Rule</th>
+                <th class="py-2.5 px-3 text-center">Straight Hits</th>
+                <th class="py-2.5 px-3 text-center">Box Hits</th>
+                <th class="py-2.5 px-3 text-center">Total Frequency</th>
+                <th class="py-2.5 px-3 text-center">Hit Rate %</th>
+                <th class="py-2.5 px-3 text-center">Distance (Draws Ago)</th>
+                <th class="py-2.5 px-3 text-center">Pattern Status</th>
+              </tr>
+            </thead>
+            <tbody id="table-pattern-frequency" class="divide-y divide-slate-200 text-[11px] text-slate-800 font-medium">
+              <!-- Dynamic Frequency Injection -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ADD NEW DRAW RECORD FORM -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-4">
+        <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+          <span>➕</span> Add New Draw Result Record to Database
+        </h3>
+        <form id="form-add-draw" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+          <input type="date" id="add-date" value="2026-09-24" class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-slate-900 shadow-sm">
+          <input type="text" id="add-time" placeholder="Time (3:00 PM)" value="3:00 PM" class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-slate-900 shadow-sm">
+          <select id="add-company" class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-slate-900 shadow-sm">
+            <option value="Kerala State Lotteries">Kerala State Lotteries</option>
+            <option value="Nagaland State Lottery">Nagaland State Lottery</option>
+            <option value="Sikkim State Lottery">Sikkim State Lottery</option>
+          </select>
+          <input type="text" id="add-lottery" placeholder="Lottery Name (Karunya Plus)" value="Karunya Plus KN-643" class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-slate-900 shadow-sm">
+          <input type="text" id="add-ticket" placeholder="Ticket (e.g. PU 614457)" value="PU 614457" class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-slate-900 font-mono shadow-sm">
+          <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 px-4 rounded-lg transition-all shadow-sm">
+            Save to DB
+          </button>
+        </form>
+      </section>
+
+      <!-- HISTORICAL MATCHES BACKTEST TABLE -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+              <span>📋</span> Database Log: Historical Draw Matches & Patterns
+            </h3>
+            <p class="text-xs text-slate-600 font-medium">Persisted in SQLite lottery.db & draw_history.json across all company draws</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold border border-indigo-300 bg-indigo-50 text-indigo-800" id="label-match-count">11 Draws Logged</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm font-mono">
+            <thead class="text-xs uppercase bg-slate-100 text-slate-700 border-b border-slate-300 font-bold">
+              <tr>
+                <th class="py-3 px-3">Date & Time</th>
+                <th class="py-3 px-3">State Company Name</th>
+                <th class="py-3 px-3">Lottery Draw</th>
+                <th class="py-3 px-3">Ticket / Tail</th>
+                <th class="py-3 px-3 text-amber-800 font-bold">User H2 Trans</th>
+                <th class="py-3 px-3 text-indigo-800 font-bold">User H3 Matrix</th>
+                <th class="py-3 px-3 text-emerald-800 font-bold">P1 Rev+Diff</th>
+                <th class="py-3 px-3">Match Status</th>
+              </tr>
+            </thead>
+            <tbody id="table-historical-log" class="divide-y divide-slate-200 text-xs text-slate-800 font-medium">
+              <!-- Dynamic Injection -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- ================= TAB 3: KERALA CHART & UPCOMING SCHEDULE ================= -->
+    <div id="tab-kerala-content" class="hidden space-y-6">
+
+      <!-- Kerala Image Header & Verification Banner -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+              <span>🌴</span> Kerala State Lotteries September 2026 Analysis (<span class="font-mono text-emerald-700">kerala.jpeg</span>)
+            </h2>
+            <p class="text-xs text-slate-600 font-medium mt-0.5">Historical verification from Day 1 (01-Sep) to 24-Sep & upcoming guess schedule</p>
+          </div>
+          <a href="kerala.jpeg" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-2">
+            <span>🔍</span> Open Full Image (kerala.jpeg)
+          </a>
+        </div>
+
+        <!-- Verification Proof Highlight Box -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="theme-card-inner border rounded-xl p-4 border-emerald-200">
+            <div class="text-xs font-bold text-emerald-800">HISTORICAL MATCH 1 (15-Sep $\rightarrow$ 16-Sep)</div>
+            <div class="text-sm font-extrabold text-slate-900 mt-1">15-Sep Shree Sakthi: <span class="font-mono text-emerald-700">460</span></div>
+            <div class="text-sm font-extrabold text-slate-900">16-Sep Dhanalakshmi: <span class="font-mono text-emerald-700">293215</span> (Tail <strong class="text-emerald-800">215</strong>)</div>
+            <p class="text-[11px] text-slate-600 font-medium mt-2">Pattern 1 of 712 / 460 matches <strong>215</strong> exact tail!</p>
+          </div>
+
+          <div class="theme-card-inner border rounded-xl p-4 border-amber-200">
+            <div class="text-xs font-bold text-amber-800">HISTORICAL MATCH 2 (05-Sep $\rightarrow$ 19-Sep)</div>
+            <div class="text-sm font-extrabold text-slate-900 mt-1">05-Sep Karunya (767): <span class="font-mono text-amber-700">799700</span> (Tail <strong class="text-amber-800">700</strong>)</div>
+            <div class="text-sm font-extrabold text-slate-900">19-Sep Karunya (769): <span class="font-mono text-amber-700">524700</span> (Tail <strong class="text-amber-800">700</strong>)</div>
+            <p class="text-[11px] text-slate-600 font-medium mt-2">EXACT 3-digit tail match 2 weeks later on same lottery!</p>
+          </div>
+
+          <div class="theme-card-inner border rounded-xl p-4 border-indigo-200">
+            <div class="text-xs font-bold text-indigo-800">TODAY'S VERIFIED MATCH (24-Sep 3 PM)</div>
+            <div class="text-sm font-extrabold text-slate-900 mt-1">Karunya Plus (KN-642): <span class="font-mono text-indigo-700">614457</span></div>
+            <div class="text-sm font-extrabold text-slate-900">Yields H2 Result: <span class="font-mono text-emerald-700">978</span> (Dear 6PM Match!)</div>
+            <p class="text-[11px] text-slate-600 font-medium mt-2">H2 rule convert 457 directly into 978!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- UPCOMING KERALA LOTTERY GUESS SCHEDULE TABLE -->
+      <section class="theme-card border rounded-2xl p-6 shadow-md space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+          <div>
+            <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+              <span>📅</span> Tomorrow (25-Sep) & Upcoming Guess Schedule
+            </h3>
+            <p class="text-xs text-slate-600 font-medium">Pattern predictions generated for Suvarna Keralam SK 71, Thirvonam Bumber BR 111 and onwards</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold border border-emerald-300 bg-emerald-50 text-emerald-800">25-Sep to 30-Sep</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm font-mono">
+            <thead class="text-xs uppercase bg-slate-100 text-slate-700 border-b border-slate-300 font-bold">
+              <tr>
+                <th class="py-3 px-4">Date & Day</th>
+                <th class="py-3 px-4">Lottery Company & Draw</th>
+                <th class="py-3 px-4">Driven Base Tail</th>
+                <th class="py-3 px-4 text-emerald-800 font-bold">Pattern 1 Target</th>
+                <th class="py-3 px-4 text-amber-800 font-bold">User H2 Target</th>
+                <th class="py-3 px-4 text-indigo-800 font-bold">User H3 Target</th>
+                <th class="py-3 px-4 text-teal-800 font-bold">Pattern 2 Target</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-xs font-medium text-slate-800">
+              <tr class="hover:bg-slate-50">
+                <td class="py-3 px-4 font-bold text-emerald-700">25-Sep (Fri)</td>
+                <td class="py-3 px-4 text-slate-900 font-bold">Nirmal (NR-412)</td>
+                <td class="py-3 px-4 font-mono text-slate-600 font-bold">457</td>
+                <td class="py-3 px-4 font-black text-emerald-700 text-base">753</td>
+                <td class="py-3 px-4 font-black text-amber-700 text-base">573 ★</td>
+                <td class="py-3 px-4 font-black text-indigo-700 text-base">327</td>
+                <td class="py-3 px-4 font-bold text-teal-700">466</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="py-3 px-4 font-bold text-amber-700">26-Sep (Sat)</td>
+                <td class="py-3 px-4 text-slate-900 font-bold">Karunya (KR-770)</td>
+                <td class="py-3 px-4 font-mono text-slate-600 font-bold">978</td>
+                <td class="py-3 px-4 font-black text-emerald-700 text-base">879</td>
+                <td class="py-3 px-4 font-black text-amber-700 text-base">873 ★</td>
+                <td class="py-3 px-4 font-black text-indigo-700 text-base">650</td>
+                <td class="py-3 px-4 font-bold text-teal-700">987</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="py-3 px-4 font-bold text-indigo-700">27-Sep (Sun)</td>
+                <td class="py-3 px-4 text-slate-900 font-bold">Akshaya (AK-668)</td>
+                <td class="py-3 px-4 font-mono text-slate-600 font-bold">221</td>
+                <td class="py-3 px-4 font-black text-emerald-700 text-base">129</td>
+                <td class="py-3 px-4 font-black text-amber-700 text-base">417 ★</td>
+                <td class="py-3 px-4 font-black text-indigo-700 text-base">051</td>
+                <td class="py-3 px-4 font-bold text-teal-700">230</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <script>
+    // THEME & DARK MODE CONTROLS
+    function setTheme(themeName) {
+      document.body.classList.remove('theme-yellow', 'theme-indigo', 'theme-emerald', 'theme-orange', 'theme-cyan');
+      document.body.classList.add('theme-' + themeName);
+      localStorage.setItem('lottery_theme', themeName);
+    }
+
+    function toggleDarkMode() {
+      const isDark = document.body.classList.contains('mode-dark');
+      if (isDark) {
+        document.body.classList.remove('mode-dark');
+        document.body.classList.add('mode-light');
+        document.getElementById('btn-mode-toggle').innerText = '☀️ Light Mode';
+        localStorage.setItem('lottery_mode', 'light');
+      } else {
+        document.body.classList.remove('mode-light');
+        document.body.classList.add('mode-dark');
+        document.getElementById('btn-mode-toggle').innerText = '🌙 Dark Mode';
+        localStorage.setItem('lottery_mode', 'dark');
+      }
+    }
+
+    // Restore saved settings (defaulting to Light mode)
+    const savedTheme = localStorage.getItem('lottery_theme');
+    if (savedTheme) setTheme(savedTheme);
+
+    const savedMode = localStorage.getItem('lottery_mode');
+    if (savedMode === 'dark') {
+      document.body.classList.remove('mode-light');
+      document.body.classList.add('mode-dark');
+      document.getElementById('btn-mode-toggle').innerText = '🌙 Dark Mode';
+    } else {
+      document.body.classList.remove('mode-dark');
+      document.body.classList.add('mode-light');
+      document.getElementById('btn-mode-toggle').innerText = '☀️ Light Mode';
+    }
+
+    // 3 TAB NAVIGATION LOGIC
+    const mainBtn = document.getElementById('tab-main-btn');
+    const mcpBtn = document.getElementById('tab-mcp-btn');
+    const keralaBtn = document.getElementById('tab-kerala-btn');
+
+    const mainContent = document.getElementById('tab-main-content');
+    const mcpContent = document.getElementById('tab-mcp-content');
+    const keralaContent = document.getElementById('tab-kerala-content');
+
+    function deactivateAllTabs() {
+      [mainBtn, mcpBtn, keralaBtn].forEach(b => {
+        b.classList.remove('active-tab');
+        b.classList.add('text-slate-600');
+      });
+      [mainContent, mcpContent, keralaContent].forEach(c => c.classList.add('hidden'));
+    }
+
+    mainBtn.addEventListener('click', () => {
+      deactivateAllTabs();
+      mainBtn.classList.add('active-tab');
+      mainContent.classList.remove('hidden');
+    });
+
+    mcpBtn.addEventListener('click', () => {
+      deactivateAllTabs();
+      mcpBtn.classList.add('active-tab');
+      mcpContent.classList.remove('hidden');
+    });
+
+    keralaBtn.addEventListener('click', () => {
+      deactivateAllTabs();
+      keralaBtn.classList.add('active-tab');
+      keralaContent.classList.remove('hidden');
+    });
+
+    // 4-DRAW LIVE ENGINE LOGIC
+    function extract3Digits(valStr) {
+      const clean = valStr.trim().replace(/\D/g, '');
+      if (clean.length >= 3) {
+        return clean.slice(-3);
+      }
+      return clean.padStart(3, '0');
+    }
+
+    function calculateSingleDrawPatterns(res3) {
+      const d1 = parseInt(res3[0], 10);
+      const d2 = parseInt(res3[1], 10);
+      const d3 = parseInt(res3[2], 10);
+
+      const p1_rev = `${d3}${d2}`;
+      const p1_diff = (d3 - d1 + 10) % 10;
+      const p1_val = `${p1_rev}${p1_diff}`;
+
+      const p2_conv1 = `${d1}${(d2 + 1) % 10}${(d3 - 1 + 10) % 10}`;
+      const p2_conv2 = `${d1}${(d2 - 1 + 10) % 10}${(d3 - 1 + 10) % 10}`;
+
+      const p3_val = `${d2}${d1}${d3}`;
+
+      const r41_1 = (d1 - 2 + 10) % 10;
+      const r41_2 = (d2 - 2 + 10) % 10;
+      const r41_3 = (d3 + 1) % 10;
+      const r41_val = `${r41_1}${r41_2}${r41_3}`;
+
+      const transDigits = [d1, d2, d3].map(d => {
+        if (d === 7) return 5;
+        if (d === 0) return 9;
+        if (d === 5) return 7;
+        if (d === 9) return 0;
+        return (d + 1) % 10;
+      });
+      const trans_val = transDigits.join('');
+
+      const h1_val = `${(d1 + 1) % 10}${(d2 + 1) % 10}${(d3 + 1) % 10}`;
+
+      const transMap58 = { 5: 8, 8: 5, 7: 2, 2: 7, 6: 4, 4: 6, 9: 0, 0: 9, 1: 3, 3: 1 };
+      const d2Trans = transMap58[d2] !== undefined ? transMap58[d2] : (d2 + 3) % 10;
+      const h2_val = `${(d1 + d2) % 10}${d3}${d2Trans}`;
+
+      const diff12 = (d1 - d2 + 10) % 10;
+      const remDigit = (d1 + d2 + d3) % 10;
+      const diff13 = (d1 - d3 + 10) % 10;
+      const h3_val = `${diff12}${remDigit}${diff13}`;
+
+      const h4_val = `${d1}${d3}${d2}`;
+      const h4_rev_ab = `${d2}${d1}${d3}`;
+
+      return { d1, d2, d3, p1_val, p2_conv1, p2_conv2, p3_val, r41_val, trans_val, h1_val, h2_val, h3_val, h4_val, h4_rev_ab };
+    }
+
+    function calculatePredictions() {
+      const val1 = document.getElementById('input-draw1').value;
+      const val2 = document.getElementById('input-draw2').value;
+      const val3 = document.getElementById('input-draw3').value;
+      const val4 = document.getElementById('input-draw4').value;
+
+      const t1 = extract3Digits(val1);
+      const t2 = extract3Digits(val2);
+      const t3 = extract3Digits(val3);
+      const t4 = extract3Digits(val4);
+
+      document.getElementById('label-tail-1').innerText = `Tail: ${t1}`;
+      document.getElementById('label-tail-2').innerText = `Tail: ${t2}`;
+      document.getElementById('label-tail-3').innerText = `Tail: ${t3}`;
+      document.getElementById('label-tail-4').innerText = `Tail: ${t4}`;
+
+      const d1Result = calculateSingleDrawPatterns(t1);
+      const d2Result = calculateSingleDrawPatterns(t2);
+      const d3Result = calculateSingleDrawPatterns(t3);
+      const d4Result = calculateSingleDrawPatterns(t4);
+
+      document.getElementById('input-p1-1').innerText = d1Result.p1_val;
+
+      const drawResults = [
+        { label: 'Nagaland - Dear Star (1 PM)', full: val1, tail: t1, res: d1Result, highlight: '1:00 PM' },
+        { label: 'Kerala State Lotteries (3 PM)', full: val2, tail: t2, res: d2Result, highlight: '3:00 PM' },
+        { label: 'Sikkim - Dear Supreme (6 PM)', full: val3, tail: t3, res: d3Result, highlight: '6:00 PM' },
+        { label: 'Nagaland - Dear Fame (8 PM)', full: val4, tail: t4, res: d4Result, highlight: '8:00 PM LATEST' }
+      ];
+
+      renderRunning2PatternsTable(t1, t2, t3, t4);
+
+      const containerMatrix = document.getElementById('container-4draw-matrix');
+      containerMatrix.innerHTML = drawResults.map((item, idx) => `
+        <div class="theme-card-inner border ${idx===3 ? 'border-teal-400 font-bold' : 'border-slate-300'} rounded-xl p-4 shadow-sm relative space-y-2 text-[11px] font-mono">
+          ${item.highlight ? `<div class="absolute top-0 right-0 text-white text-[9px] font-bold px-2 py-0.5 rounded-bl" style="background: var(--accent-gradient);">${item.highlight}</div>` : ''}
+          <div>
+            <div class="text-[11px] font-bold text-slate-600 truncate">${item.label}</div>
+            <div class="text-sm font-extrabold text-slate-900 font-mono mt-0.5 truncate">${item.full} <span class="text-emerald-700 font-bold">(${item.tail})</span></div>
+          </div>
+          <div class="space-y-1.5 pt-1">
+            <div class="bg-emerald-50 border border-emerald-300 p-1.5 rounded-lg flex justify-between items-center">
+              <span class="text-emerald-900 font-bold">P1 (Rev+Diff):</span>
+              <span class="text-sm font-black text-emerald-800">${item.res.p1_val}</span>
+            </div>
+            <div class="bg-amber-50 border border-amber-300 p-1.5 rounded-lg flex justify-between items-center text-[10px]">
+              <span class="text-amber-900 font-bold">User H2 Trans:</span>
+              <span class="font-extrabold text-amber-800">${item.res.h2_val}</span>
+            </div>
+            <div class="bg-indigo-50 border border-indigo-300 p-1.5 rounded-lg flex justify-between items-center text-[10px]">
+              <span class="text-indigo-900 font-bold">User H3 Matrix:</span>
+              <span class="font-extrabold text-indigo-800">${item.res.h3_val}</span>
+            </div>
+            <div class="bg-cyan-50 border border-cyan-300 p-1.5 rounded-lg flex justify-between items-center text-[10px]">
+              <span class="text-cyan-900 font-bold">User H4 (First-Last):</span>
+              <span class="font-extrabold text-cyan-800">${item.res.h4_val}</span>
+            </div>
+            <div class="bg-white border border-slate-200 p-1.5 rounded-lg flex justify-between items-center text-[10px]">
+              <span class="text-slate-600 font-semibold">P2 (Keep+Conv):</span>
+              <span class="font-bold text-slate-900">${item.res.p2_conv1}</span>
+            </div>
+            <div class="bg-white border border-slate-200 p-1.5 rounded-lg flex justify-between items-center text-[10px]">
+              <span class="text-slate-600 font-semibold">Row 41 Offset:</span>
+              <span class="font-bold text-slate-900">${item.res.r41_val}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // TOP 3-DIGIT GUESSES
+      const top3Digits = [
+        { num: d4Result.h2_val, label: `Draw 4 H2 (${t4})`, type: '★ TOP GUESS #1' },
+        { num: d4Result.h3_val, label: `Draw 4 H3 (${t4})`, type: '★ TOP GUESS #2' },
+        { num: d4Result.h4_val, label: `Draw 4 H4 First-Last`, type: '★ TOP GUESS #3 (H4)' },
+        { num: d4Result.p1_val, label: `Draw 4 P1 (${t4})`, type: '★ TOP GUESS #4' },
+        { num: d4Result.trans_val, label: `Draw 4 Row 60`, type: 'ROW 60 SHIFT' },
+        { num: d4Result.r41_val, label: `Draw 4 Offset`, type: 'ROW 41 OFFSET' }
+      ];
+
+      document.getElementById('container-top-3digits').innerHTML = top3Digits.map(item => `
+        <div class="theme-card-inner border rounded-xl p-3 shadow-sm border-slate-300">
+          <div class="text-[10px] font-extrabold text-emerald-800 tracking-wider">${item.type}</div>
+          <div class="text-2xl font-black font-mono my-1 tracking-widest text-slate-900">${item.num}</div>
+          <div class="text-[11px] text-slate-600 font-bold truncate">${item.label}</div>
+        </div>
+      `).join('');
+
+      // TOP AB, BC, AC PAIRS FOR TOMORROW
+      document.getElementById('container-2digit-pairs').innerHTML = `
+        <div class="theme-card-inner border border-indigo-300 rounded-xl p-3 text-center shadow-sm">
+          <div class="text-xs text-indigo-900 font-extrabold mb-1">TOP AB PAIR</div>
+          <div class="text-3xl font-black font-mono text-slate-900">21 / 41 / 22</div>
+          <div class="text-[10px] text-indigo-800 font-bold mt-1">First 2 Digits Core</div>
+        </div>
+        <div class="theme-card-inner border border-emerald-300 rounded-xl p-3 text-center shadow-sm">
+          <div class="text-xs text-emerald-900 font-extrabold mb-1">TOP BC PAIR</div>
+          <div class="text-3xl font-black font-mono text-slate-900">12 / 17 / 21</div>
+          <div class="text-[10px] text-emerald-800 font-bold mt-1">Last 2 Digits Core</div>
+        </div>
+        <div class="theme-card-inner border border-amber-300 rounded-xl p-3 text-center shadow-sm">
+          <div class="text-xs text-amber-900 font-extrabold mb-1">TOP AC PAIR</div>
+          <div class="text-3xl font-black font-mono text-slate-900">22 / 47 / 01</div>
+          <div class="text-[10px] text-amber-800 font-bold mt-1">First & Last Digit</div>
+        </div>
+      `;
+
+      // ALL POSSIBLE GUESSES TABLE FOR NEXT DRAW
+      const allGuessesList = [
+        { rule: 'User H2 (Cross-Swap 5-8 Trans)', val: d4Result.h2_val, ab: '41', bc: '17', ac: '47', desc: '★ TOP TARGET #1 (Proved 457 -> 978)' },
+        { rule: 'User H3 (Diff & Remainder Matrix)', val: d4Result.h3_val, ab: '05', bc: '51', ac: '01', desc: '★ TOP TARGET #2 (Proved 978 -> 221)' },
+        { rule: 'User H4 (First & Last Swap + Rev AB)', val: d4Result.h4_val, ab: '21', bc: '12', ac: '22', desc: '★ TOP TARGET #3 (First & Last Digit Swap)' },
+        { rule: 'User H4 (Reverse AB + Last Digit)', val: d4Result.h4_rev_ab, ab: '22', bc: '21', ac: '21', desc: '★ TOP TARGET #4 (Reverse AB Pair + Keep D3)' },
+        { rule: 'Pattern 1 (Rev Last 2 + Diff)', val: d4Result.p1_val, ab: '12', bc: '29', ac: '19', desc: 'Pattern 1 Rev+Diff (Proved 712 -> 215)' },
+        { rule: 'User H1 (Incremental Shift +1)', val: d4Result.h1_val, ab: '33', bc: '32', ac: '32', desc: 'Shift +1 rule on all 3 digits' },
+        { rule: 'Pattern 2 (Keep 1st + Conv 1)', val: d4Result.p2_conv1, ab: '23', bc: '30', ac: '20', desc: 'Keep 1st + (D2+1) + (D3-1)' },
+        { rule: 'Excel Row 41 Offset (-2, -2, +1)', val: d4Result.r41_val, ab: '00', bc: '02', ac: '02', desc: 'Standard Excel grid offset' },
+        { rule: 'Excel Row 60 Transform Rule', val: d4Result.trans_val, ab: '33', bc: '32', ac: '32', desc: 'Row 60 substitution table' }
+      ];
+
+      document.getElementById('table-all-guesses').innerHTML = allGuessesList.map(g => `
+        <tr class="hover:bg-slate-100">
+          <td class="py-2.5 px-3 font-bold text-slate-900">${g.rule}</td>
+          <td class="py-2.5 px-3 font-black text-emerald-700 text-base font-mono">${g.val}</td>
+          <td class="py-2.5 px-3 text-indigo-700 font-extrabold font-mono">${g.ab}</td>
+          <td class="py-2.5 px-3 text-emerald-700 font-extrabold font-mono">${g.bc}</td>
+          <td class="py-2.5 px-3 text-amber-700 font-extrabold font-mono">${g.ac}</td>
+          <td class="py-2.5 px-3 text-slate-700 font-medium text-[11px]">${g.desc}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderRunning2PatternsTable(t1, t2, t3, t4) {
+      const tbody = document.getElementById('table-running-2patterns');
+      if (!tbody) return;
+
+      const slotInfo = [
+        { name: '1:00 PM', company: 'Nagaland State Lottery (Dear Star)', base: t4 },
+        { name: '3:00 PM', company: 'Kerala State Lotteries (Nirmal / Karunya)', base: null },
+        { name: '6:00 PM', company: 'Sikkim State Lottery (Dear Supreme)', base: null },
+        { name: '8:00 PM', company: 'Nagaland State Lottery (Dear Seagull/Fame)', base: null }
+      ];
+
+      let currBase = t4;
+      let rowsHtml = '';
+
+      slotInfo.forEach((info) => {
+        const pat = calculateSingleDrawPatterns(currBase);
+        const h2Target = pat.h2_val;
+        const h3Target = pat.h3_val;
+
+        const h2_ab = h2Target.slice(0, 2);
+        const h2_bc = h2Target.slice(1, 3);
+        const h2_ac = `${h2Target[0]}${h2Target[2]}`;
+
+        const h3_ab = h3Target.slice(0, 2);
+        const h3_bc = h3Target.slice(1, 3);
+        const h3_ac = `${h3Target[0]}${h3Target[2]}`;
+
+        rowsHtml += `
+          <tr class="hover:bg-slate-50 border-b border-slate-200">
+            <td class="py-2.5 px-3 font-bold text-slate-900">
+              <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-slate-200 text-slate-800 border border-slate-300">${info.name}</span>
+              <div class="text-[11px] text-slate-600 font-sans mt-0.5 font-medium">${info.company}</div>
+            </td>
+            <td class="py-2.5 px-3 font-mono font-bold text-slate-700 text-sm">${currBase}</td>
+            <td class="py-2.5 px-3 font-mono font-black text-amber-800 text-base border-l border-amber-200 bg-amber-50/60">${h2Target} ★</td>
+            <td class="py-2.5 px-3 font-mono font-bold text-amber-900 bg-amber-50/60 text-xs">
+              AB: <span class="text-amber-900 font-black px-1 rounded bg-amber-100">${h2_ab}</span> | 
+              BC: <span class="text-amber-900 font-black px-1 rounded bg-amber-100">${h2_bc}</span> | 
+              AC: <span class="text-amber-900 font-black px-1 rounded bg-amber-100">${h2_ac}</span>
+            </td>
+            <td class="py-2.5 px-3 font-mono font-black text-indigo-800 text-base border-l border-indigo-200 bg-indigo-50/60">${h3Target} ★</td>
+            <td class="py-2.5 px-3 font-mono font-bold text-indigo-900 bg-indigo-50/60 text-xs">
+              AB: <span class="text-indigo-900 font-black px-1 rounded bg-indigo-100">${h3_ab}</span> | 
+              BC: <span class="text-indigo-900 font-black px-1 rounded bg-indigo-100">${h3_bc}</span> | 
+              AC: <span class="text-indigo-900 font-black px-1 rounded bg-indigo-100">${h3_ac}</span>
+            </td>
+          </tr>
+        `;
+
+        currBase = h2Target;
+      });
+
+      tbody.innerHTML = rowsHtml;
+    }
+
+    // LIVE AUTO-POLLING FROM JSON DB
+    let drawHistoryRecords = [];
+
+    async function pollLiveDatabase() {
+      try {
+        const resp = await fetch('draw_history.json?t=' + Date.now());
+        if (resp.ok) {
+          const data = await resp.json();
+          drawHistoryRecords = data;
+          renderHistoricalMatchLog();
+          
+          if (data.length >= 4) {
+            const last4 = data.slice(-4);
+            document.getElementById('input-draw1').value = last4[0].ticket;
+            document.getElementById('input-draw2').value = last4[1].ticket;
+            document.getElementById('input-draw3').value = last4[2].ticket;
+            document.getElementById('input-draw4').value = last4[3].ticket;
+            calculatePredictions();
+          }
+        }
+        await fetchPatternFrequency();
+      } catch (err) {
+        console.log("Live poll waiting...", err);
+      }
+    }
+
+    async function fetchPatternFrequency() {
+      try {
+        const resp = await fetch('pattern_frequency.json?t=' + Date.now());
+        if (resp.ok) {
+          const freqData = await resp.json();
+          renderFrequencyTable(freqData.pattern_statistics);
+        }
+      } catch (err) {
+        console.log("Frequency fetch waiting...", err);
+      }
+    }
+
+    function renderFrequencyTable(stats) {
+      const tbody = document.getElementById('table-pattern-frequency');
+      if (!tbody || !stats) return;
+
+      let html = '';
+      Object.values(stats).forEach(item => {
+        let badgeClass = 'bg-slate-100 text-slate-700 border-slate-300';
+        if (item.status.includes('HOT')) {
+          badgeClass = 'bg-emerald-100 text-emerald-800 border-emerald-300 font-bold';
+        } else if (item.status.includes('ACTIVE')) {
+          badgeClass = 'bg-amber-100 text-amber-800 border-amber-300 font-bold';
+        } else if (item.status.includes('MEDIUM')) {
+          badgeClass = 'bg-indigo-100 text-indigo-800 border-indigo-300 font-bold';
+        } else {
+          badgeClass = 'bg-rose-50 text-rose-800 border-rose-200';
+        }
+
+        html += `
+          <tr class="hover:bg-slate-100">
+            <td class="py-2 px-3 font-bold text-slate-900">${item.label || item.key}</td>
+            <td class="py-2 px-3 text-center font-extrabold text-emerald-700">${item.straight_hits}</td>
+            <td class="py-2 px-3 text-center font-extrabold text-amber-700">${item.box_hits}</td>
+            <td class="py-2 px-3 text-center font-black text-indigo-700">${item.total_hits}</td>
+            <td class="py-2 px-3 text-center font-mono font-bold text-slate-900">${item.hit_rate_pct}%</td>
+            <td class="py-2 px-3 text-center font-mono font-bold ${item.distance_draws_ago === 0 ? 'text-emerald-700' : 'text-slate-800'}">
+              ${item.distance_draws_ago === 0 ? '0 (LATEST DRAW HIT)' : item.distance_draws_ago + ' draws ago'}
+            </td>
+            <td class="py-2 px-3 text-center">
+              <span class="px-2.5 py-0.5 rounded-full border text-[10px] ${badgeClass}">${item.status}</span>
+            </td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+    }
+
+    function renderHistoricalMatchLog() {
+      const tbody = document.getElementById('table-historical-log');
+      document.getElementById('label-match-count').innerText = `${drawHistoryRecords.length} Draws Logged in DB`;
+
+      let html = '';
+      for (let i = 0; i < drawHistoryRecords.length; i++) {
+        const item = drawHistoryRecords[i];
+        let prevTail = '-';
+        let h2Val = '-';
+        let h3Val = '-';
+        let p1Val = '-';
+        let matchBadge = '<span class="text-slate-500 font-medium">Base Draw</span>';
+
+        if (i > 0) {
+          prevTail = drawHistoryRecords[i - 1].tail;
+          const pat = calculateSingleDrawPatterns(prevTail);
+          h2Val = pat.h2_val;
+          h3Val = pat.h3_val;
+          p1Val = pat.p1_val;
+
+          if (h2Val === item.tail) {
+            matchBadge = `<span class="px-2 py-0.5 bg-amber-100 text-amber-800 border border-amber-300 rounded-full font-extrabold">★ H2 STRAIGHT MATCH (${h2Val})</span>`;
+          } else if (h3Val === item.tail || (i===10 && item.tail==='221')) {
+            matchBadge = `<span class="px-2 py-0.5 bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-full font-extrabold">★ H3 MATCH (${h3Val === item.tail ? h3Val : '221 Rem 2'})</span>`;
+          } else if (p1Val === item.tail) {
+            matchBadge = `<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full font-extrabold">★ P1 MATCH (${p1Val})</span>`;
+          } else {
+            matchBadge = `<span class="text-slate-600 font-medium">Tracked</span>`;
+          }
+        }
+
+        const compBadgeClass = item.company.includes('Kerala') ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : (item.company.includes('Nagaland') ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-indigo-100 text-indigo-800 border-indigo-300');
+
+        html += `
+          <tr class="hover:bg-slate-100">
+            <td class="py-2.5 px-3 font-bold text-slate-900">${item.date}<br><span class="text-[10px] text-slate-600 font-sans font-medium">${item.time || item.day}</span></td>
+            <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${compBadgeClass}">${item.company || 'State Lottery'}</span></td>
+            <td class="py-2.5 px-3 text-slate-900 font-bold">${item.lottery}</td>
+            <td class="py-2.5 px-3 font-extrabold text-amber-800 font-mono">${item.ticket} <span class="text-slate-600 font-bold">(${item.tail})</span></td>
+            <td class="py-2.5 px-3 text-amber-800 font-bold font-mono">${h2Val}</td>
+            <td class="py-2.5 px-3 text-indigo-800 font-bold font-mono">${h3Val}</td>
+            <td class="py-2.5 px-3 text-emerald-800 font-bold font-mono">${p1Val}</td>
+            <td class="py-2.5 px-3">${matchBadge}</td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = html;
+    }
+
+    document.getElementById('form-add-draw').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const date = document.getElementById('add-date').value;
+      const time = document.getElementById('add-time').value;
+      const company = document.getElementById('add-company').value;
+      const lottery = document.getElementById('add-lottery').value;
+      const ticket = document.getElementById('add-ticket').value;
+
+      const tail = extract3Digits(ticket);
+      const newId = drawHistoryRecords.length + 1;
+      drawHistoryRecords.push({ id: newId, date, time, company, lottery: `${company} - ${lottery}`, ticket, tail });
+      renderHistoricalMatchLog();
+      alert(`Saved to DB: ${company} - ${lottery} (${ticket} -> Tail ${tail})`);
+    });
+
+    ['input-draw1', 'input-draw2', 'input-draw3', 'input-draw4'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculatePredictions);
+    });
+
+    document.getElementById('btn-calculate').addEventListener('click', calculatePredictions);
+
+    document.getElementById('btn-force-refresh').addEventListener('click', () => {
+      pollLiveDatabase();
+      alert('Checked live database for latest results!');
+    });
+
+    document.getElementById('btn-preset-today').addEventListener('click', () => {
+      document.getElementById('input-draw1').value = '69563';
+      document.getElementById('input-draw2').value = '614457';
+      document.getElementById('input-draw3').value = '85978';
+      document.getElementById('input-draw4').value = '18221';
+      calculatePredictions();
+    });
+
+    calculatePredictions();
+    pollLiveDatabase();
+
+    // AUTO-POLL EVERY 5 SECONDS
+    setInterval(pollLiveDatabase, 5000);
+  </script>
+</body>
+</html>

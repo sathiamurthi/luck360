@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "date": "2026-09-01",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-01 3:00 PM",
+    "lottery": "Kerala State Lotteries - Suvarna Keralam (SK 70)",
+    "ticket": "40731",
+    "tail": "731"
+  },
+  {
+    "id": 2,
+    "date": "2026-09-05",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-05 3:00 PM",
+    "lottery": "Kerala State Lotteries - Karunya (KR 767)",
+    "ticket": "799700",
+    "tail": "700"
+  },
+  {
+    "id": 3,
+    "date": "2026-09-09",
+    "time": "6:00 PM",
+    "company": "Sikkim State Lottery",
+    "day": "2026-09-09 6:00 PM",
+    "lottery": "Sikkim State Lottery - Dhanalakshmi (DL 68)",
+    "ticket": "145236",
+    "tail": "236"
+  },
+  {
+    "id": 4,
+    "date": "2026-09-10",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-10 3:00 PM",
+    "lottery": "Kerala State Lotteries - Karunya Plus (KP 639)",
+    "ticket": "812269",
+    "tail": "269"
+  },
+  {
+    "id": 5,
+    "date": "2026-09-15",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-15 3:00 PM",
+    "lottery": "Kerala State Lotteries - Shree Sakthi (SS 537)",
+    "ticket": "304460",
+    "tail": "460"
+  },
+  {
+    "id": 6,
+    "date": "2026-09-16",
+    "time": "6:00 PM",
+    "company": "Sikkim State Lottery",
+    "day": "2026-09-16 6:00 PM",
+    "lottery": "Sikkim State Lottery - Dhanalakshmi (DL 69)",
+    "ticket": "293215",
+    "tail": "215"
+  },
+  {
+    "id": 7,
+    "date": "2026-09-19",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-19 3:00 PM",
+    "lottery": "Kerala State Lotteries - Karunya (KR 769)",
+    "ticket": "524700",
+    "tail": "700"
+  },
+  {
+    "id": 8,
+    "date": "2026-09-24",
+    "time": "1:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-24 1:00 PM",
+    "lottery": "Nagaland State Lottery - Dear Star Thursday (1 PM)",
+    "ticket": "73G 69563",
+    "tail": "563"
+  },
+  {
+    "id": 9,
+    "date": "2026-09-24",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-24 3:00 PM",
+    "lottery": "Kerala State Lotteries - Karunya Plus KN-642 (3 PM)",
+    "ticket": "PU 614457",
+    "tail": "457"
+  },
+  {
+    "id": 10,
+    "date": "2026-09-24",
+    "time": "6:00 PM",
+    "company": "Sikkim State Lottery",
+    "day": "2026-09-24 6:00 PM",
+    "lottery": "Sikkim State Lottery - Dear Supreme Thursday (6 PM)",
+    "ticket": "86B 85978",
+    "tail": "978"
+  },
+  {
+    "id": 11,
+    "date": "2026-09-24",
+    "time": "8:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-24 8:00 PM",
+    "lottery": "Nagaland State Lottery - Dear Fame Thursday (8 PM)",
+    "ticket": "76C 18221",
+    "tail": "221"
+  }
+]

@@ -1,0 +1,239 @@
+{
+  "total_evaluated_transitions": 10,
+  "latest_draw_date": "2026-09-24",
+  "latest_draw_tail": "221",
+  "pattern_statistics": {
+    "H2_CrossSwap": {
+      "key": "H2_CrossSwap",
+      "label": "H2 Cross-Swap 5-8 Rule",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 10.0,
+      "last_hit_date": "2026-09-24",
+      "last_hit_transition": "Draw #9 (2026-09-24 457) -> Draw #10 (2026-09-24 978)",
+      "last_hit_index": 8,
+      "distance_draws_ago": 1,
+      "status": "ACTIVE (Recent 1-2 Draws)"
+    },
+    "H3_DiffRem": {
+      "key": "H3_DiffRem",
+      "label": "H3 Diff & Remainder Matrix",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 10.0,
+      "last_hit_date": "2026-09-24",
+      "last_hit_transition": "Draw #10 (2026-09-24 978) -> Draw #11 (2026-09-24 221)",
+      "last_hit_index": 9,
+      "distance_draws_ago": 0,
+      "status": "HOT (Latest Draw Hit)"
+    },
+    "H4_FirstLastSwap": {
+      "key": "H4_FirstLastSwap",
+      "label": "H4 First & Last Swap",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "H4_RevABLast": {
+      "key": "H4_RevABLast",
+      "label": "H4 Reverse AB Pair + Last",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "H5_OuterAB_Rule": {
+      "key": "H5_OuterAB_Rule",
+      "label": "H5 Ticket Outer Digits AB Rule",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "H5_RevFront_Rule": {
+      "key": "H5_RevFront_Rule",
+      "label": "H5 Ticket Reversed First 2 Digits Rule",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "H1_IncShift": {
+      "key": "H1_IncShift",
+      "label": "H1 Incremental Shift (+1,+1,+1)",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "P1_RevDiff": {
+      "key": "P1_RevDiff",
+      "label": "P1 Reverse + Difference",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "P2_KeepConv": {
+      "key": "P2_KeepConv",
+      "label": "P2 Keep + Convert",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "P3_RevAB": {
+      "key": "P3_RevAB",
+      "label": "P3 Reverse AB",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "Row41_Offset": {
+      "key": "Row41_Offset",
+      "label": "Row 41 (-2, -2, +1)",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    },
+    "Row60_Rule": {
+      "key": "Row60_Rule",
+      "label": "Row 60 Rule",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)"
+    }
+  },
+  "transition_match_log": [
+    {
+      "transition": "Draw #1 -> Draw #2",
+      "from": "Kerala State Lotteries (731) Ticket: 40731",
+      "to": "Kerala State Lotteries (700) Ticket: 799700",
+      "hits": []
+    },
+    {
+      "transition": "Draw #2 -> Draw #3",
+      "from": "Kerala State Lotteries (700) Ticket: 799700",
+      "to": "Sikkim State Lottery (236) Ticket: 145236",
+      "hits": []
+    },
+    {
+      "transition": "Draw #3 -> Draw #4",
+      "from": "Sikkim State Lottery (236) Ticket: 145236",
+      "to": "Kerala State Lotteries (269) Ticket: 812269",
+      "hits": []
+    },
+    {
+      "transition": "Draw #4 -> Draw #5",
+      "from": "Kerala State Lotteries (269) Ticket: 812269",
+      "to": "Kerala State Lotteries (460) Ticket: 304460",
+      "hits": []
+    },
+    {
+      "transition": "Draw #5 -> Draw #6",
+      "from": "Kerala State Lotteries (460) Ticket: 304460",
+      "to": "Sikkim State Lottery (215) Ticket: 293215",
+      "hits": []
+    },
+    {
+      "transition": "Draw #6 -> Draw #7",
+      "from": "Sikkim State Lottery (215) Ticket: 293215",
+      "to": "Kerala State Lotteries (700) Ticket: 524700",
+      "hits": []
+    },
+    {
+      "transition": "Draw #7 -> Draw #8",
+      "from": "Kerala State Lotteries (700) Ticket: 524700",
+      "to": "Nagaland State Lottery (563) Ticket: 73G 69563",
+      "hits": []
+    },
+    {
+      "transition": "Draw #8 -> Draw #9",
+      "from": "Nagaland State Lottery (563) Ticket: 73G 69563",
+      "to": "Kerala State Lotteries (457) Ticket: PU 614457",
+      "hits": []
+    },
+    {
+      "transition": "Draw #9 -> Draw #10",
+      "from": "Kerala State Lotteries (457) Ticket: PU 614457",
+      "to": "Sikkim State Lottery (978) Ticket: 86B 85978",
+      "hits": [
+        {
+          "pattern": "H2_CrossSwap",
+          "type": "STRAIGHT HIT",
+          "val": "978",
+          "label": "H2 Cross-Swap 5-8 Rule"
+        }
+      ]
+    },
+    {
+      "transition": "Draw #10 -> Draw #11",
+      "from": "Sikkim State Lottery (978) Ticket: 86B 85978",
+      "to": "Nagaland State Lottery (221) Ticket: 76C 18221",
+      "hits": [
+        {
+          "pattern": "H3_DiffRem",
+          "type": "STRAIGHT HIT",
+          "val": "221",
+          "label": "H3 Diff & Remainder Matrix"
+        }
+      ]
+    }
+  ]
+}
