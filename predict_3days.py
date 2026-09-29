@@ -38,7 +38,47 @@ def calc_all(tail):
     h4_a = f"{d1}{d3}{d2}"
     h4_b = f"{d2}{d1}{d3}"
 
+    # USER PATTERN H6: (D1 - D2, D1 + D2 + 1, D3)
+    n1 = (d1 - d2 + 10) % 10
+    n2 = (d1 + d2 + 1) % 10
+    n3 = d3
+    h6 = f"{n1}{n2}{n3}"
+
+    # 6 NEW IDENTIFIED PATTERNS (H7 to H12)
+    h7 = f"{(d2 + 1) % 10}{(d1 - d2 - 1 + 10) % 10}{(d1 + d3) % 10}"
+    h8 = f"{(d1 + d3 + 1) % 10}{(d1 + d3 + 1) % 10}{(d2 + 1) % 10}"
+    h9 = f"{(d3 - d1 - 1 + 10) % 10}{(d1 + d3 + 1) % 10}{(10 - d1) % 10}"
+    h10 = f"{(d3 + 5) % 10}{(9 - d3 + 10) % 10}{(d3 - 1 + 10) % 10}"
+    h11 = f"{(d1 + 1) % 10}{(d1 + d3 + 1) % 10}{(d1 + d3) % 10}"
+    h12 = f"{(d1 + 2) % 10}{(d2 - 3 + 10) % 10}{(d3 + 5) % 10}"
+
+    # USER NEW PATTERN H13: Zero-Six Product Tens (Hits 500->053 Straight)
+    map_0_6 = (d3 + 6) % 10
+    prod13 = d1 * map_0_6
+    d3_tens = (prod13 // 10) % 10 if prod13 >= 10 else prod13 % 10
+    h13 = f"{d2}{d1}{d3_tens}"
+
+    # USER NEW PATTERN H14: Prefix Difference Sandwich / 615 Pattern (Hits 053->615)
+    h14 = f"{(d2 + 1) % 10}{(d1 + 1) % 10}{d2}"
+
+    # USER NEW PATTERN H15: Shift-Difference Rule (Hits 398->053 Straight)
+    h15 = f"{(d2 + 1) % 10}{(d3 - d1 + 10) % 10}{d1}"
+
+    # USER NEW PATTERN H16: Twin-Echo Step Rule (Hits 615->626 Straight)
+    h16 = f"{d1}{(d2 + 1) % 10}{(d3 + 1) % 10}"
+
     return {
+        "H16_TwinEchoStep": h16,
+        "H15_ShiftDiff": h15,
+        "H13_ZeroSixProduct": h13,
+        "H14_PrefixDiff_615": h14,
+        "H7_DiffDiffSum": h7,
+        "H8_OuterSumStep": h8,
+        "H9_SubAddTen": h9,
+        "H10_PartnerMirror": h10,
+        "H11_SumPairPlus": h11,
+        "H12_MirrorStep": h12,
+        "H6_DiffSumPlusOne": h6,
         "H2_CrossSwap": h2,
         "H3_DiffRem": h3,
         "H4_FirstLast": h4_a,
@@ -50,25 +90,22 @@ def calc_all(tail):
         "Row60_Rule": r60
     }
 
-def get_3day_predictions(starting_tail="221"):
+def get_3day_predictions(starting_tail="398"):
     schedule = [
-        # Day 1: Friday, Sept 25, 2026
-        {"date": "2026-09-25", "day": "Friday", "time": "1:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Star Friday"},
-        {"date": "2026-09-25", "day": "Friday", "time": "3:00 PM", "company": "Kerala State Lotteries", "lottery": "Nirmal (NR-412)"},
-        {"date": "2026-09-25", "day": "Friday", "time": "6:00 PM", "company": "Sikkim State Lottery", "lottery": "Dear Supreme Friday"},
-        {"date": "2026-09-25", "day": "Friday", "time": "8:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Seagull Friday"},
+        # Day 1: Friday, Sept 25, 2026 8 PM (Upcoming)
+        {"date": "2026-09-25", "day": "Friday", "time": "8:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Seagull Friday (8 PM)"},
         
         # Day 2: Saturday, Sept 26, 2026
-        {"date": "2026-09-26", "day": "Saturday", "time": "1:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Star Saturday"},
-        {"date": "2026-09-26", "day": "Saturday", "time": "3:00 PM", "company": "Kerala State Lotteries", "lottery": "Karunya (KR-770)"},
-        {"date": "2026-09-26", "day": "Saturday", "time": "6:00 PM", "company": "Sikkim State Lottery", "lottery": "Dear Supreme Saturday"},
-        {"date": "2026-09-26", "day": "Saturday", "time": "8:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Touchdown Saturday"},
+        {"date": "2026-09-26", "day": "Saturday", "time": "1:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Star Saturday (1 PM)"},
+        {"date": "2026-09-26", "day": "Saturday", "time": "3:00 PM", "company": "Kerala State Lotteries", "lottery": "Thirvonam Bumber (BR-111)"},
+        {"date": "2026-09-26", "day": "Saturday", "time": "6:00 PM", "company": "Sikkim State Lottery", "lottery": "Dear Supreme Saturday (6 PM)"},
+        {"date": "2026-09-26", "day": "Saturday", "time": "8:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Touchdown Saturday (8 PM)"},
         
         # Day 3: Sunday, Sept 27, 2026
-        {"date": "2026-09-27", "day": "Sunday", "time": "1:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Star Sunday"},
-        {"date": "2026-09-27", "day": "Sunday", "time": "3:00 PM", "company": "Kerala State Lotteries", "lottery": "Akshaya (AK-668)"},
-        {"date": "2026-09-27", "day": "Sunday", "time": "6:00 PM", "company": "Sikkim State Lottery", "lottery": "Dear Supreme Sunday"},
-        {"date": "2026-09-27", "day": "Sunday", "time": "8:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Hawk Sunday"}
+        {"date": "2026-09-27", "day": "Sunday", "time": "1:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Star Sunday (1 PM)"},
+        {"date": "2026-09-27", "day": "Sunday", "time": "3:00 PM", "company": "Kerala State Lotteries", "lottery": "Samrudhi (SM-74)"},
+        {"date": "2026-09-27", "day": "Sunday", "time": "6:00 PM", "company": "Sikkim State Lottery", "lottery": "Dear Supreme Sunday (6 PM)"},
+        {"date": "2026-09-27", "day": "Sunday", "time": "8:00 PM", "company": "Nagaland State Lottery", "lottery": "Dear Hawk Sunday (8 PM)"}
     ]
 
     curr_base = starting_tail
@@ -77,15 +114,16 @@ def get_3day_predictions(starting_tail="221"):
     for slot in schedule:
         pats = calc_all(curr_base)
         
-        # Main candidates
+        # Star candidates
+        top_h7 = pats["H7_DiffDiffSum"]
+        top_h8 = pats["H8_OuterSumStep"]
+        top_h9 = pats["H9_SubAddTen"]
+        top_h6 = pats["H6_DiffSumPlusOne"]
         top_h2 = pats["H2_CrossSwap"]
-        top_h3 = pats["H3_DiffRem"]
-        top_h4 = pats["H4_FirstLast"]
-        top_h1 = pats["H1_IncShift"]
 
-        ab_pairs = [top_h2[:2], top_h3[:2], top_h4[:2], top_h1[:2]]
-        bc_pairs = [top_h2[1:], top_h3[1:], top_h4[1:], top_h1[1:]]
-        ac_pairs = [f"{top_h2[0]}{top_h2[2]}", f"{top_h3[0]}{top_h3[2]}", f"{top_h4[0]}{top_h4[2]}", f"{top_h1[0]}{top_h1[2]}"]
+        ab_pairs = [top_h7[:2], top_h8[:2], top_h9[:2], top_h6[:2], top_h2[:2]]
+        bc_pairs = [top_h7[1:], top_h8[1:], top_h9[1:], top_h6[1:], top_h2[1:]]
+        ac_pairs = [f"{top_h7[0]}{top_h7[2]}", f"{top_h8[0]}{top_h8[2]}", f"{top_h9[0]}{top_h9[2]}", f"{top_h6[0]}{top_h6[2]}", f"{top_h2[0]}{top_h2[2]}"]
 
         predictions.append({
             "date": slot["date"],
@@ -94,13 +132,13 @@ def get_3day_predictions(starting_tail="221"):
             "company": slot["company"],
             "lottery": slot["lottery"],
             "input_base_tail": curr_base,
-            "top_3digit_guesses": [top_h2, top_h3, top_h4, top_h1],
+            "top_3digit_guesses": [top_h7, top_h8, top_h9, top_h6, top_h2],
             "all_patterns": pats,
             "top_ab_pairs": list(dict.fromkeys(ab_pairs)),
             "top_bc_pairs": list(dict.fromkeys(bc_pairs)),
             "top_ac_pairs": list(dict.fromkeys(ac_pairs))
         })
-        curr_base = top_h2
+        curr_base = top_h7
 
     return predictions
 

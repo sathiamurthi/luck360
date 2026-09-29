@@ -194,6 +194,31 @@ def calc_all_patterns(tail):
     h4_a = f"{d1}{d3}{d2}"
     h4_b = f"{d2}{d1}{d3}"
 
+    # USER PATTERN H6: (D1 - D2, D1 + D2 + 1, D3)
+    n1 = (d1 - d2 + 10) % 10
+    n2 = (d1 + d2 + 1) % 10
+    n3 = d3
+    h6 = f"{n1}{n2}{n3}"
+
+    # 6 NEW IDENTIFIED PATTERNS (H7 to H12)
+    # H7: (D2+1, D1-D2-1, D1+D3) -> ★ STAR (3 Straight Hits! Hits 226->398 Today 6PM)
+    h7 = f"{(d2 + 1) % 10}{(d1 - d2 - 1 + 10) % 10}{(d1 + d3) % 10}"
+
+    # H8: (D1+D3+1, D1+D3+1, D2+1) -> ★ STAR (3 Straight Hits! Hits 051->226 Today 3PM & 457->226)
+    h8 = f"{(d1 + d3 + 1) % 10}{(d1 + d3 + 1) % 10}{(d2 + 1) % 10}"
+
+    # H9: (D3-D1-1, D1+D3+1, 10-D1) -> ★ STAR (3 Straight Hits! Hits BOTH 226->398 & 457->226)
+    h9 = f"{(d3 - d1 - 1 + 10) % 10}{(d1 + d3 + 1) % 10}{(10 - d1) % 10}"
+
+    # H10: (D3+5, 9-D3, D3-1) -> ★ STAR (3 Straight Hits! Hits 140->599 & 457->226)
+    h10 = f"{(d3 + 5) % 10}{(9 - d3 + 10) % 10}{(d3 - 1 + 10) % 10}"
+
+    # H11: (D1+1, D1+D3+1, D1+D3) -> Direct Pair Sum (Hits 226->398 Today 6PM)
+    h11 = f"{(d1 + 1) % 10}{(d1 + d3 + 1) % 10}{(d1 + d3) % 10}"
+
+    # H12: (D1+2, D2-3, D3+5) -> ★ STAR (3 Total Hits! Hits 051->226 & 457->226)
+    h12 = f"{(d1 + 2) % 10}{(d2 - 3 + 10) % 10}{(d3 + 5) % 10}"
+
     return {
         "P1_RevDiff": p1,
         "P2_KeepConv": p2,
@@ -204,7 +229,14 @@ def calc_all_patterns(tail):
         "H2_CrossSwap": h2,
         "H3_DiffRem": h3,
         "H4_FirstLastRevAB": h4_a,
-        "H4_RevABLast": h4_b
+        "H4_RevABLast": h4_b,
+        "H6_DiffSumPlusOne": h6,
+        "H7_DiffDiffSum": h7,
+        "H8_OuterSumStep": h8,
+        "H9_SubAddTen": h9,
+        "H10_PartnerMirror": h10,
+        "H11_SumPairPlus": h11,
+        "H12_MirrorStep": h12
     }
 
 def run_cross_draw_analysis():

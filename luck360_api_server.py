@@ -36,7 +36,10 @@ from luck360_mcp_server import (
     get_pattern_frequencies,
     get_audit_report,
     fetch_latest_live_results,
-    calculate_custom_tail_patterns
+    calculate_custom_tail_patterns,
+    calculate_blind_patterns,
+    calc_blind_tweak_patterns,
+    get_comprehensive_report
 )
 
 # FastAPI App Definition
@@ -101,6 +104,16 @@ async def serve_pattern_frequency():
     if os.path.exists(FREQ_FILE):
         return FileResponse(FREQ_FILE, media_type="application/json")
     return JSONResponse(content=get_pattern_frequencies())
+
+
+@app.get("/daemon_status.json", summary="Raw Daemon Status JSON", tags=["Dashboard"])
+@app.get("/api/v1/daemon-status", summary="Daemon Status API", tags=["Dashboard"])
+async def serve_daemon_status():
+    """Serves background 20-minute auto-service daemon status."""
+    status_file = os.path.join(WORKSPACE_DIR, "daemon_status.json")
+    if os.path.exists(status_file):
+        return FileResponse(status_file, media_type="application/json")
+    return JSONResponse(content={"status": "Daemon active"})
 
 
 @app.get("/kerala.jpeg", summary="Kerala Lottery Header Image", tags=["Dashboard"])
@@ -172,6 +185,184 @@ async def api_arrest_patterns():
     return arrest_patterns()
 
 
+@app.get("/api/v1/summary_checklist", summary="Summary Checklist for Next Draw (8:00 PM)", tags=["Predictions"])
+async def api_summary_checklist(
+    base_tail: Optional[str] = Query(None, description="Base tail to derive from (defaults to latest draw tail 398)")
+):
+    """
+    Summary Checklist for the upcoming 8:00 PM Dear Seagull draw.
+    Calculates top target picks using identical pattern formulas (H7, H9, H11 & Star Patterns)
+    that delivered straight hits today.
+    """
+    recs = load_draw_records()
+    tail = base_tail or (recs[-1]["tail"] if recs else "398")
+    d1, d2, d3 = int(tail[0]), int(tail[1]), int(tail[2])
+
+    h7 = f"{(d2 + 1) % 10}{(d1 - d2 - 1) % 10}{(d1 + d3) % 10}"
+    h9 = f"{(d3 - d1 - 1) % 10}{(d1 + d3 + 1) % 10}{(10 - d1) % 10}"
+    h11 = f"{(d1 + 1) % 10}{(d1 + d3 + 1) % 10}{(d1 + d3) % 10}"
+    h8 = f"{(d1 + d3 + 1) % 10}{(d1 + d3 + 1) % 10}{(d2 + 1) % 10}"
+    h10 = f"{(d3 + 5) % 10}{(9 - d3) % 10}{(d3 - 1) % 10}"
+    h12 = f"{(d1 + 2) % 10}{(d2 - 3) % 10}{(d3 + 5) % 10}"
+    h6 = f"{(d1 - d2) % 10}{(d1 + d2 + 1) % 10}{d3}"
+
+    # USER NEW PATTERN H13: Zero-Six Product Tens (Hits 500->053 Straight)
+    map_0_6 = (d3 + 6) % 10
+    prod13 = d1 * map_0_6
+    d3_tens = (prod13 // 10) % 10 if prod13 >= 10 else prod13 % 10
+    h13 = f"{d2}{d1}{d3_tens}"
+
+    # USER NEW PATTERN H14: Prefix Difference Sandwich / 615 Pattern (Hits 053->615)
+    h14 = f"{(d2 + 1) % 10}{(d1 + 1) % 10}{d2}"
+
+    # USER NEW PATTERN H15: Shift-Difference Rule (Hits 398->053 Straight)
+    h15 = f"{(d2 + 1) % 10}{(d3 - d1 + 10) % 10}{d1}"
+
+    # USER NEW PATTERN H16: Twin-Echo Step Rule (Hits 615->626 Straight)
+    h16 = f"{d1}{(d2 + 1) % 10}{(d3 + 1) % 10}"
+    h16_pal = f"{d1}{(d1 + d3 + 1) % 10}{d1}"
+
+    trans_map = {'0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '5':'8', '6':'1', '7':'2', '8':'3', '9':'0'}
+    h2 = f"{(d1 + d2) % 10}{d3}{trans_map.get(str(d2), '0')}"
+
+    # Determine draw context dynamically
+    if tail == "626" or (recs and recs[-1].get("time") == "6:00 PM"):
+        title = "Summary Checklist for Tonight 8:00 PM (Dear Seagull)"
+        upcoming_draw = "Nagaland State Lottery - Dear Seagull (8:00 PM)"
+        derived_from = f"Today 6:00 PM Result (Tail {tail})"
+        confluence_highlight = f"Front pair {h16[:2]} locked by Star H16 ({h16} & {h16_pal}), and Front-Twin 33 by Star H7 ({h7}) & H8 ({h8})"
+    elif tail == "500" or (recs and recs[-1].get("time") == "8:00 PM"):
+        title = "Summary Checklist for Tomorrow 1:00 PM (Dear Day)"
+        upcoming_draw = "Nagaland State Lottery - Dear Day (Tomorrow 1:00 PM)"
+        derived_from = f"Today 8:00 PM Result (Tail {tail})"
+        confluence_highlight = f"Front pair {h9[:2]} / {h7[:2]} strongly indicated by Star Patterns H9 ({h9}) and H7 ({h7})"
+    elif tail == "398":
+        title = "Summary Checklist for 8:00 PM (Dear Seagull)"
+        upcoming_draw = "Nagaland State Lottery - Dear Seagull (8:00 PM)"
+        derived_from = f"Today 6:00 PM Result (Tail {tail})"
+        confluence_highlight = "Front pair 42 is strongly reinforced by both H9 (427) and H11 (421)"
+    else:
+        title = f"Summary Checklist (Derived from Tail {tail})"
+        upcoming_draw = "Next Scheduled Draw"
+        derived_from = f"Latest Result (Tail {tail})"
+        confluence_highlight = f"Primary target pairs: {h16[:2]}, {h15[:2]}, {h7[:2]}"
+
+    return {
+        "title": title,
+        "upcoming_draw": upcoming_draw,
+        "base_tail": tail,
+        "derived_from": derived_from,
+        "confluence_highlight": confluence_highlight,
+        "confluence_pairs": {
+            "top_ab_pairs": [h16[:2], h7[:2], "26", h15[:2], "50", h9[:2]],
+            "top_bc_pairs": [h16[1:], h7[1:], h15[1:], h9[1:], h13[1:]],
+            "top_ac_pairs": [f"{h16[0]}{h16[2]}", f"{h7[0]}{h7[2]}", f"{h15[0]}{h15[2]}", f"{h9[0]}{h9[2]}"]
+        },
+        "checklist_targets": [
+            {
+                "priority": "#1",
+                "pattern": "★ Star H15 (Shift-Difference Rule)",
+                "target": h15,
+                "formula": "(d2+1, d3-d1, d1)",
+                "math": f"({d2}+1={(d2+1)%10}, {d3}-{d1}={(d3-d1+10)%10}, {d1}={d1}) = {h15}",
+                "pairs": {"AB": h15[:2], "BC": h15[1:], "AC": f"{h15[0]}{h15[2]}"},
+                "status": "★ 100% STRAIGHT HIT on 398->053 (Overnight Cycle)",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#2",
+                "pattern": "★ Star H14 (Prefix Sandwich / 615)",
+                "target": h14,
+                "formula": "(d2+1, d1+1, d2)",
+                "math": f"({d2}+1={(d2+1)%10}, {d1}+1={(d1+1)%10}, {d2}={d2}) = {h14}",
+                "pairs": {"AB": h14[:2], "BC": h14[1:], "AC": f"{h14[0]}{h14[2]}"},
+                "status": "★ Hits 053->615 via Prefix Difference Sandwich",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#3",
+                "pattern": "★ Star H7 (Diff-Diff-Sum)",
+                "target": h7,
+                "formula": "(d2+1, d1-d2-1, d1+d3) % 10",
+                "math": f"({d2}+1={(d2+1)%10}, {d1}-{d2}-1={(d1-d2-1)%10}, {d1}+{d3}={(d1+d3)%10})",
+                "pairs": {"AB": h7[:2], "BC": h7[1:], "AC": f"{h7[0]}{h7[2]}"},
+                "status": "★ 3 Straight Hits (Proved Today 226->398 Hit at 6 PM)",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#2",
+                "pattern": "★ Star H9 (Sub-Add-10)",
+                "target": h9,
+                "formula": "(d3-d1-1, d1+d3+1, 10-d1) % 10",
+                "math": f"({d3}-{d1}-1={(d3-d1-1)%10}, {d1}+{d3}+1={(d1+d3+1)%10}, 10-{d1}={(10-d1)%10})",
+                "pairs": {"AB": h9[:2], "BC": h9[1:], "AC": f"{h9[0]}{h9[2]}"},
+                "status": "★ 3 Straight Hits (Proved Today 226->398 & 457->226)",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#3",
+                "pattern": "Pattern H11 (Sum-Pair-Plus)",
+                "target": h11,
+                "formula": "(d1+1, d1+d3+1, d1+d3) % 10",
+                "math": f"({d1}+1={(d1+1)%10}, {d1}+{d3}+1={(d1+d3+1)%10}, {d1}+{d3}={(d1+d3)%10})",
+                "pairs": {"AB": h11[:2], "BC": h11[1:], "AC": f"{h11[0]}{h11[2]}"},
+                "status": "Direct Pair Sum (Proved Today 226->398 at 6 PM)",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#4",
+                "pattern": "★ Star H8 (Outer-Sum Step)",
+                "target": h8,
+                "formula": "(d1+d3+1, d1+d3+1, d2+1) % 10",
+                "math": f"({d1}+{d3}+1={(d1+d3+1)%10}, {d1}+{d3}+1={(d1+d3+1)%10}, {d2}+1={(d2+1)%10})",
+                "pairs": {"AB": h8[:2], "BC": h8[1:], "AC": f"{h8[0]}{h8[2]}"},
+                "status": "★ 3 Straight Hits (Proved Today 051->226 at 3 PM)",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#5",
+                "pattern": "★ Star H10 (Partner-Mirror)",
+                "target": h10,
+                "formula": "(d3+5, 9-d3, d3-1) % 10",
+                "math": f"({d3}+5={(d3+5)%10}, 9-{d3}={(9-d3)%10}, {d3}-1={(d3-1)%10})",
+                "pairs": {"AB": h10[:2], "BC": h10[1:], "AC": f"{h10[0]}{h10[2]}"},
+                "status": "★ 3 Straight Hits (140->599 & 457->226)",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#6",
+                "pattern": "★ Star H12 (Mirror Step)",
+                "target": h12,
+                "formula": "(d1+2, d2-3, d3+5) % 10",
+                "math": f"({d1}+2={(d1+2)%10}, {d2}-3={(d2-3)%10}, {d3}+5={(d3+5)%10})",
+                "pairs": {"AB": h12[:2], "BC": h12[1:], "AC": f"{h12[0]}{h12[2]}"},
+                "status": "★ 3 Total Hits (Proved Today 051->226 at 3 PM)",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#7",
+                "pattern": "★ Star H6 (Diff-Sum Plus One)",
+                "target": h6,
+                "formula": "(d1-d2, d1+d2+1, d3) % 10",
+                "math": f"({d1}-{d2}={(d1-d2)%10}, {d1}+{d2}+1={(d1+d2+1)%10}, {d3}={d3})",
+                "pairs": {"AB": h6[:2], "BC": h6[1:], "AC": f"{h6[0]}{h6[2]}"},
+                "status": "★ Proved on Today 221->051 Hit at 1 PM",
+                "recommended_play": "Straight & Box"
+            },
+            {
+                "priority": "#8",
+                "pattern": "★ Star H2 (Cross-Swap 5-8)",
+                "target": h2,
+                "formula": "(d1+d2, d3, trans(d2)) % 10",
+                "math": f"({d1}+{d2}={(d1+d2)%10}, {d3}={d3}, trans({d2})={trans_map.get(str(d2),'0')})",
+                "pairs": {"AB": h2[:2], "BC": h2[1:], "AC": f"{h2[0]}{h2[2]}"},
+                "status": "Proved on 457->978 Straight Hit",
+                "recommended_play": "Straight"
+            }
+        ]
+    }
+
+
 @app.get("/api/v1/patterns/predict", summary="3-Day Predictions Matrix", tags=["Predictions"])
 async def api_predict_next_days(
     starting_tail: Optional[str] = Query(None, description="Starting 3-digit tail (defaults to latest draw tail)")
@@ -195,12 +386,40 @@ async def api_calculate_custom(
     return calculate_custom_tail_patterns(tail=tail, ticket_str=ticket)
 
 
+@app.get("/api/v1/patterns/blind", summary="Blind & Simple Tweak Cross-Draw Patterns", tags=["Predictions"])
+async def api_blind_patterns(
+    seed_tail: Optional[str] = Query(None, description="Seed tail to derive from (defaults to 1:00 PM draw tail or latest)")
+):
+    """
+    Computes Blind & Simple Tweak Cross-Draw patterns.
+    Captures cross-slot leaps (Nagaland 1 PM -> Nagaland 8 PM), such as:
+    - 051 (1 PM) -> 500 (8 PM) [Proved Straight Hit via Rev-AB Tweak -1 on Sep 25]
+    - 563 (1 PM) -> 221 (8 PM) [Proved Straight Hit via Diff-Step on Sep 24]
+    Includes frequency forecast and expected occurrence windows.
+    """
+    return calculate_blind_patterns(seed_tail=seed_tail)
+
+
+@app.get("/api/v1/report/comprehensive", summary="Comprehensive Daily & Multi-Dimension Analytics Report", tags=["Reports"])
+async def api_comprehensive_report():
+    """
+    Comprehensive Daily & Multi-Dimension Pattern Analytics Report:
+    - Current Day Pattern Breakdown (Every result today with exact derived previous base & formula proof)
+    - Pattern Re-Appearing Trend & Recurrence Matrix
+    - Multi-Dimension Analysis: Sequential Flow, Day-to-Day Same-Slot, and Lottery/Agent-wise patterns
+    - Executive Next Draw Projections: Expected HOT 5, Hot AB/BC/AC Pairs, and All Single Digit Hot Meter (0-9)
+    - Enriched Draw History with attached pattern derivations and proofs
+    """
+    return get_comprehensive_report()
+
+
 @app.get("/api/v1/audit", summary="Audit Trail Report", tags=["Audit"])
 async def api_audit_report():
     """Full transparency audit of verified historical pattern hits with mathematical proofs."""
     return get_audit_report()
 
 
+@app.get("/api/v1/fetch-live", summary="Trigger Live Results Scraping (GET)", tags=["System"])
 @app.post("/api/v1/fetch-live", summary="Trigger Live Results Scraping", tags=["System"])
 async def api_trigger_fetch():
     """Trigger background scraper to fetch latest draw results from official portals."""

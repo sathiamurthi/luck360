@@ -108,5 +108,165 @@
     "lottery": "Nagaland State Lottery - Dear Fame Thursday (8 PM)",
     "ticket": "76C 18221",
     "tail": "221"
+  },
+  {
+    "id": 12,
+    "date": "2026-09-25",
+    "time": "1:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-25 1:00 PM",
+    "lottery": "Nagaland State Lottery - Dear Victory Friday (1 PM)",
+    "ticket": "84L 10051",
+    "tail": "051"
+  },
+  {
+    "id": 13,
+    "date": "2026-09-25",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-25 3:00 PM",
+    "lottery": "Kerala State Lotteries - Suvarna Keralam SK-71 (3 PM)",
+    "ticket": "RA 494226",
+    "tail": "226"
+  },
+  {
+    "id": 16,
+    "date": "2026-09-25",
+    "time": "6:00 PM",
+    "company": "Sikkim State Lottery",
+    "day": "2026-09-25 6:00 PM",
+    "lottery": "Sikkim State Lottery - Dear Mountain Friday (6 PM)",
+    "ticket": "90K 10398",
+    "tail": "398"
+  },
+  {
+    "id": 17,
+    "date": "2026-09-25",
+    "time": "8:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-25 8:00 PM",
+    "lottery": "Nagaland State Lottery - Dear Seagull Friday (8 PM)",
+    "ticket": "96G 64500",
+    "tail": "500"
+  },
+  {
+    "id": 18,
+    "date": "2026-09-26",
+    "time": "1:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-26 1:00 PM",
+    "lottery": "Nagaland State Lottery - Dear 1 PM (Saturday)",
+    "ticket": "65G 50053",
+    "tail": "053"
+  },
+  {
+    "id": 19,
+    "date": "2026-09-26",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-26 3:00 PM",
+    "lottery": "Kerala State Lotteries - Thiruvonam Bumper BR-111 (3 PM)",
+    "ticket": "TL 360615",
+    "tail": "615"
+  },
+  {
+    "id": 20,
+    "date": "2026-09-26",
+    "time": "6:00 PM",
+    "company": "Sikkim State Lottery",
+    "day": "2026-09-26 6:00 PM",
+    "lottery": "Sikkim State Lottery - Dear 6 PM (Saturday)",
+    "ticket": "94E 22626",
+    "tail": "626"
+  },
+  {
+    "id": 21,
+    "date": "2026-09-26",
+    "time": "8:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-26 8:00 PM",
+    "lottery": "Nagaland State Lottery - Dear 8 PM (Saturday)",
+    "ticket": "50E 94406",
+    "tail": "406"
+  },
+  {
+    "id": 22,
+    "date": "2026-09-27",
+    "time": "1:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-27 1:00 PM",
+    "lottery": "Nagaland State Lottery - Dear 1 PM (Sunday)",
+    "ticket": "54J 77102",
+    "tail": "102"
+  },
+  {
+    "id": 23,
+    "date": "2026-09-27",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-27 3:00 PM",
+    "lottery": "Kerala State Lotteries - Samrudhi SM-74 (3 PM)",
+    "ticket": "MS 495441",
+    "tail": "441"
+  },
+  {
+    "id": 24,
+    "date": "2026-09-27",
+    "time": "6:00 PM",
+    "company": "Sikkim State Lottery",
+    "day": "2026-09-27 6:00 PM",
+    "lottery": "Sikkim State Lottery - Dear 6 PM (Sunday)",
+    "ticket": "96H 49446",
+    "tail": "446"
+  },
+  {
+    "id": 25,
+    "date": "2026-09-27",
+    "time": "8:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-27 8:00 PM",
+    "lottery": "Nagaland State Lottery - Dear 8 PM (Sunday)",
+    "ticket": "45H 14359",
+    "tail": "359"
+  },
+  {
+    "id": 26,
+    "date": "2026-09-28",
+    "time": "1:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-28 1:00 PM",
+    "lottery": "Nagaland State Lottery - Dear 1 PM (Monday)",
+    "ticket": "66B 02649",
+    "tail": "649"
+  },
+  {
+    "id": 27,
+    "date": "2026-09-28",
+    "time": "3:00 PM",
+    "company": "Kerala State Lotteries",
+    "day": "2026-09-28 3:00 PM",
+    "lottery": "Kerala State Lotteries - Sthree Sakthi Lottery SS-539 (3 PM)",
+    "ticket": "BB 814615",
+    "tail": "615"
+  },
+  {
+    "id": 28,
+    "date": "2026-09-28",
+    "time": "6:00 PM",
+    "company": "Sikkim State Lottery",
+    "day": "2026-09-28 6:00 PM",
+    "lottery": "Sikkim State Lottery - Dear 6 PM (Monday)",
+    "ticket": "90K 24430",
+    "tail": "430"
+  },
+  {
+    "id": 29,
+    "date": "2026-09-28",
+    "time": "8:00 PM",
+    "company": "Nagaland State Lottery",
+    "day": "2026-09-28 8:00 PM",
+    "lottery": "Nagaland State Lottery - Dear 8 PM (Monday)",
+    "ticket": "94C 10827",
+    "tail": "827"
   }
 ]

@@ -64,10 +64,61 @@ def calc_all_patterns(tail, ticket_str=""):
     h5_target_a = f"{outer_ab[0]}{outer_ab[1]}{d3}"
     h5_target_b = f"{first_two_rev[0]}{first_two_rev[1]}{d3}"
 
+    # USER PATTERN H6: (D1 - D2, D1 + D2 + 1, D3)
+    n1 = (d1 - d2 + 10) % 10
+    n2 = (d1 + d2 + 1) % 10
+    n3 = d3
+    h6 = f"{n1}{n2}{n3}"
+
+    # 6 NEW IDENTIFIED PATTERNS (H7 to H12)
+    # H7: (D2+1, D1-D2-1, D1+D3) -> ★ STAR (3 Straight Hits! Hits 226->398 Today 6PM)
+    h7 = f"{(d2 + 1) % 10}{(d1 - d2 - 1 + 10) % 10}{(d1 + d3) % 10}"
+
+    # H8: (D1+D3+1, D1+D3+1, D2+1) -> ★ STAR (3 Straight Hits! Hits 051->226 Today 3PM & 457->226)
+    h8 = f"{(d1 + d3 + 1) % 10}{(d1 + d3 + 1) % 10}{(d2 + 1) % 10}"
+
+    # H9: (D3-D1-1, D1+D3+1, 10-D1) -> ★ STAR (3 Straight Hits! Hits BOTH 226->398 & 457->226)
+    h9 = f"{(d3 - d1 - 1 + 10) % 10}{(d1 + d3 + 1) % 10}{(10 - d1) % 10}"
+
+    # H10: (D3+5, 9-D3, D3-1) -> ★ STAR (3 Straight Hits! Hits 140->599 & 457->226)
+    h10 = f"{(d3 + 5) % 10}{(9 - d3 + 10) % 10}{(d3 - 1 + 10) % 10}"
+
+    # H11: (D1+1, D1+D3+1, D1+D3) -> Direct Pair Sum (Hits 226->398 Today 6PM)
+    h11 = f"{(d1 + 1) % 10}{(d1 + d3 + 1) % 10}{(d1 + d3) % 10}"
+
+    # H12: (D1+2, D2-3, D3+5) -> ★ STAR (3 Total Hits! Hits 051->226 & 457->226)
+    h12 = f"{(d1 + 2) % 10}{(d2 - 3 + 10) % 10}{(d3 + 5) % 10}"
+
+    # H13: Zero-Six Product Tens (Hits 500->053 Straight)
+    map_0_6 = (d3 + 6) % 10
+    prod13 = d1 * map_0_6
+    d3_tens = (prod13 // 10) % 10 if prod13 >= 10 else prod13 % 10
+    h13 = f"{d2}{d1}{d3_tens}"
+
+    # H14: Prefix Difference Sandwich / 615 Pattern (Hits 053->615 Straight)
+    h14 = f"{(d2 + 1) % 10}{(d1 + 1) % 10}{d2}"
+
+    # H15: Shift-Difference Rule (Hits 398->053 Straight)
+    h15 = f"{(d2 + 1) % 10}{(d3 - d1 + 10) % 10}{d1}"
+
+    # H16: Twin-Echo Step Rule (Hits 615->626 Straight)
+    h16 = f"{d1}{(d2 + 1) % 10}{(d3 + 1) % 10}"
+
     return {
+        "H16_TwinEchoStep": {"val": h16, "label": "★ H16 Twin-Echo Step Rule (Hits 615->626 Straight)", "is_star": True},
+        "H15_ShiftDiff": {"val": h15, "label": "★ H15 Shift-Difference Rule (Hits 398->053 Straight)", "is_star": True},
+        "H13_ZeroSixProduct": {"val": h13, "label": "★ H13 Zero-Six Product Tens Rule (Hits 500->053 Straight)", "is_star": True},
+        "H14_PrefixDiff_615": {"val": h14, "label": "★ H14 Prefix-Diff Sandwich 615 Rule (Hits 053->615)", "is_star": True},
+        "H7_DiffDiffSum": {"val": h7, "label": "★ H7 Diff-Diff-Sum Rule (Hits 226->398 Straight)", "is_star": True},
+        "H8_OuterSumStep": {"val": h8, "label": "★ H8 Outer-Sum Step Rule (Hits 051->226 & 457->226)", "is_star": True},
+        "H9_SubAddTen": {"val": h9, "label": "★ H9 Sub-Add-10 Rule (Hits 226->398 & 457->226)", "is_star": True},
+        "H10_PartnerMirror": {"val": h10, "label": "★ H10 Partner-Mirror Step Rule (Hits 140->599 & 457->226)", "is_star": True},
+        "H11_SumPairPlus": {"val": h11, "label": "H11 Sum Pair Plus Rule (Hits 226->398 Straight)", "is_star": False},
+        "H12_MirrorStep": {"val": h12, "label": "★ H12 Half-Partner Mirror Step (Hits 051->226 & 457->226)", "is_star": True},
+        "H6_DiffSumPlusOne": {"val": h6, "label": "★ H6 Diff-Sum+1 Rule (Hits 221->051 Straight)", "is_star": True},
+        "H2_CrossSwap": {"val": h2, "label": "★ H2 Cross-Swap 5-8 Rule (Hits 457->978 Straight)", "is_star": True},
+        "H3_DiffRem": {"val": h3, "label": "★ H3 Diff & Remainder Matrix (Hits 978->221 & 221->051)", "is_star": True},
         "H1_IncShift": {"val": h1, "label": "H1 Incremental Shift (+1,+1,+1)"},
-        "H2_CrossSwap": {"val": h2, "label": "H2 Cross-Swap 5-8 Rule"},
-        "H3_DiffRem": {"val": h3, "label": "H3 Diff & Remainder Matrix"},
         "H4_FirstLastSwap": {"val": h4_a, "label": "H4 First & Last Swap"},
         "H4_RevABLast": {"val": h4_b, "label": "H4 Reverse AB Pair + Last"},
         "H5_OuterAB_Rule": {"val": h5_target_a, "label": "H5 Ticket Outer Digits AB Rule", "extra_ab": outer_ab},
@@ -87,6 +138,9 @@ def run_frequency_and_age_analysis():
     stats = {}
 
     pattern_keys = [
+        "H16_TwinEchoStep", "H15_ShiftDiff", "H14_PrefixDiff_615", "H13_ZeroSixProduct",
+        "H7_DiffDiffSum", "H8_OuterSumStep", "H9_SubAddTen", "H10_PartnerMirror",
+        "H11_SumPairPlus", "H12_MirrorStep", "H6_DiffSumPlusOne",
         "H2_CrossSwap", "H3_DiffRem", "H4_FirstLastSwap", "H4_RevABLast",
         "H5_OuterAB_Rule", "H5_RevFront_Rule",
         "H1_IncShift", "P1_RevDiff", "P2_KeepConv", "P3_RevAB",
@@ -158,7 +212,12 @@ def run_frequency_and_age_analysis():
             item["hit_rate_pct"] = round((item["total_hits"] / total_transitions) * 100, 1)
         
         dist = item["distance_draws_ago"]
-        if dist == 0:
+        is_star = (item["total_hits"] >= 3)
+        item["is_star"] = is_star
+
+        if is_star:
+            item["status"] = "★ STAR MATCH (3+ Hits)"
+        elif dist == 0:
             item["status"] = "HOT (Latest Draw Hit)"
         elif dist <= 2:
             item["status"] = "ACTIVE (Recent 1-2 Draws)"

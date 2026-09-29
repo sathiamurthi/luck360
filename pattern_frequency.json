@@ -1,33 +1,189 @@
 {
-  "total_evaluated_transitions": 10,
-  "latest_draw_date": "2026-09-24",
-  "latest_draw_tail": "221",
+  "total_evaluated_transitions": 26,
+  "latest_draw_date": "2026-09-28",
+  "latest_draw_tail": "827",
   "pattern_statistics": {
-    "H2_CrossSwap": {
-      "key": "H2_CrossSwap",
-      "label": "H2 Cross-Swap 5-8 Rule",
+    "H16_TwinEchoStep": {
+      "key": "H16_TwinEchoStep",
+      "label": "\u2605 H16 Twin-Echo Step Rule (Hits 615->626 Straight)",
+      "straight_hits": 1,
+      "box_hits": 1,
+      "total_hits": 2,
+      "hit_rate_pct": 7.7,
+      "last_hit_date": "2026-09-26",
+      "last_hit_transition": "Draw #17 (2026-09-26 615) -> Draw #18 (2026-09-26 626)",
+      "last_hit_index": 16,
+      "distance_draws_ago": 9,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H15_ShiftDiff": {
+      "key": "H15_ShiftDiff",
+      "label": "\u2605 H15 Shift-Difference Rule (Hits 398->053 Straight)",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H14_PrefixDiff_615": {
+      "key": "H14_PrefixDiff_615",
+      "label": "\u2605 H14 Prefix-Diff Sandwich 615 Rule (Hits 053->615)",
       "straight_hits": 1,
       "box_hits": 0,
       "total_hits": 1,
-      "hit_rate_pct": 10.0,
+      "hit_rate_pct": 3.8,
+      "last_hit_date": "2026-09-26",
+      "last_hit_transition": "Draw #16 (2026-09-26 053) -> Draw #17 (2026-09-26 615)",
+      "last_hit_index": 15,
+      "distance_draws_ago": 10,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H13_ZeroSixProduct": {
+      "key": "H13_ZeroSixProduct",
+      "label": "\u2605 H13 Zero-Six Product Tens Rule (Hits 500->053 Straight)",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 3.8,
+      "last_hit_date": "2026-09-26",
+      "last_hit_transition": "Draw #15 (2026-09-25 500) -> Draw #16 (2026-09-26 053)",
+      "last_hit_index": 14,
+      "distance_draws_ago": 11,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H7_DiffDiffSum": {
+      "key": "H7_DiffDiffSum",
+      "label": "\u2605 H7 Diff-Diff-Sum Rule (Hits 226->398 Straight)",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 3.8,
+      "last_hit_date": "2026-09-25",
+      "last_hit_transition": "Draw #13 (2026-09-25 226) -> Draw #14 (2026-09-25 398)",
+      "last_hit_index": 12,
+      "distance_draws_ago": 13,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H8_OuterSumStep": {
+      "key": "H8_OuterSumStep",
+      "label": "\u2605 H8 Outer-Sum Step Rule (Hits 051->226 & 457->226)",
+      "straight_hits": 2,
+      "box_hits": 0,
+      "total_hits": 2,
+      "hit_rate_pct": 7.7,
+      "last_hit_date": "2026-09-27",
+      "last_hit_transition": "Draw #20 (2026-09-27 102) -> Draw #21 (2026-09-27 441)",
+      "last_hit_index": 19,
+      "distance_draws_ago": 6,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H9_SubAddTen": {
+      "key": "H9_SubAddTen",
+      "label": "\u2605 H9 Sub-Add-10 Rule (Hits 226->398 & 457->226)",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 3.8,
+      "last_hit_date": "2026-09-25",
+      "last_hit_transition": "Draw #13 (2026-09-25 226) -> Draw #14 (2026-09-25 398)",
+      "last_hit_index": 12,
+      "distance_draws_ago": 13,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H10_PartnerMirror": {
+      "key": "H10_PartnerMirror",
+      "label": "\u2605 H10 Partner-Mirror Step Rule (Hits 140->599 & 457->226)",
+      "straight_hits": 0,
+      "box_hits": 0,
+      "total_hits": 0,
+      "hit_rate_pct": 0.0,
+      "last_hit_date": "N/A",
+      "last_hit_transition": "None",
+      "last_hit_index": -1,
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H11_SumPairPlus": {
+      "key": "H11_SumPairPlus",
+      "label": "H11 Sum Pair Plus Rule (Hits 226->398 Straight)",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 3.8,
+      "last_hit_date": "2026-09-25",
+      "last_hit_transition": "Draw #13 (2026-09-25 226) -> Draw #14 (2026-09-25 398)",
+      "last_hit_index": 12,
+      "distance_draws_ago": 13,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H12_MirrorStep": {
+      "key": "H12_MirrorStep",
+      "label": "\u2605 H12 Half-Partner Mirror Step (Hits 051->226 & 457->226)",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 3.8,
+      "last_hit_date": "2026-09-25",
+      "last_hit_transition": "Draw #12 (2026-09-25 051) -> Draw #13 (2026-09-25 226)",
+      "last_hit_index": 11,
+      "distance_draws_ago": 14,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H6_DiffSumPlusOne": {
+      "key": "H6_DiffSumPlusOne",
+      "label": "\u2605 H6 Diff-Sum+1 Rule (Hits 221->051 Straight)",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 3.8,
+      "last_hit_date": "2026-09-25",
+      "last_hit_transition": "Draw #11 (2026-09-24 221) -> Draw #12 (2026-09-25 051)",
+      "last_hit_index": 10,
+      "distance_draws_ago": 15,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
+    },
+    "H2_CrossSwap": {
+      "key": "H2_CrossSwap",
+      "label": "\u2605 H2 Cross-Swap 5-8 Rule (Hits 457->978 Straight)",
+      "straight_hits": 1,
+      "box_hits": 0,
+      "total_hits": 1,
+      "hit_rate_pct": 3.8,
       "last_hit_date": "2026-09-24",
       "last_hit_transition": "Draw #9 (2026-09-24 457) -> Draw #10 (2026-09-24 978)",
       "last_hit_index": 8,
-      "distance_draws_ago": 1,
-      "status": "ACTIVE (Recent 1-2 Draws)"
+      "distance_draws_ago": 17,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "H3_DiffRem": {
       "key": "H3_DiffRem",
-      "label": "H3 Diff & Remainder Matrix",
-      "straight_hits": 1,
+      "label": "\u2605 H3 Diff & Remainder Matrix (Hits 978->221 & 221->051)",
+      "straight_hits": 2,
       "box_hits": 0,
-      "total_hits": 1,
-      "hit_rate_pct": 10.0,
-      "last_hit_date": "2026-09-24",
-      "last_hit_transition": "Draw #10 (2026-09-24 978) -> Draw #11 (2026-09-24 221)",
-      "last_hit_index": 9,
-      "distance_draws_ago": 0,
-      "status": "HOT (Latest Draw Hit)"
+      "total_hits": 2,
+      "hit_rate_pct": 7.7,
+      "last_hit_date": "2026-09-25",
+      "last_hit_transition": "Draw #11 (2026-09-24 221) -> Draw #12 (2026-09-25 051)",
+      "last_hit_index": 10,
+      "distance_draws_ago": 15,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "H4_FirstLastSwap": {
       "key": "H4_FirstLastSwap",
@@ -39,8 +195,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "H4_RevABLast": {
       "key": "H4_RevABLast",
@@ -52,8 +209,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "H5_OuterAB_Rule": {
       "key": "H5_OuterAB_Rule",
@@ -65,8 +223,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "H5_RevFront_Rule": {
       "key": "H5_RevFront_Rule",
@@ -78,8 +237,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "H1_IncShift": {
       "key": "H1_IncShift",
@@ -91,8 +251,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "P1_RevDiff": {
       "key": "P1_RevDiff",
@@ -104,8 +265,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "P2_KeepConv": {
       "key": "P2_KeepConv",
@@ -117,8 +279,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "P3_RevAB": {
       "key": "P3_RevAB",
@@ -130,8 +293,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "Row41_Offset": {
       "key": "Row41_Offset",
@@ -143,8 +307,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     },
     "Row60_Rule": {
       "key": "Row60_Rule",
@@ -156,8 +321,9 @@
       "last_hit_date": "N/A",
       "last_hit_transition": "None",
       "last_hit_index": -1,
-      "distance_draws_ago": 10,
-      "status": "OVERDUE (6+ Draws Ago)"
+      "distance_draws_ago": 26,
+      "status": "OVERDUE (6+ Draws Ago)",
+      "is_star": false
     }
   },
   "transition_match_log": [
@@ -207,7 +373,14 @@
       "transition": "Draw #8 -> Draw #9",
       "from": "Nagaland State Lottery (563) Ticket: 73G 69563",
       "to": "Kerala State Lotteries (457) Ticket: PU 614457",
-      "hits": []
+      "hits": [
+        {
+          "pattern": "H16_TwinEchoStep",
+          "type": "BOX HIT",
+          "val": "574",
+          "label": "\u2605 H16 Twin-Echo Step Rule (Hits 615->626 Straight)"
+        }
+      ]
     },
     {
       "transition": "Draw #9 -> Draw #10",
@@ -218,7 +391,7 @@
           "pattern": "H2_CrossSwap",
           "type": "STRAIGHT HIT",
           "val": "978",
-          "label": "H2 Cross-Swap 5-8 Rule"
+          "label": "\u2605 H2 Cross-Swap 5-8 Rule (Hits 457->978 Straight)"
         }
       ]
     },
@@ -231,9 +404,178 @@
           "pattern": "H3_DiffRem",
           "type": "STRAIGHT HIT",
           "val": "221",
-          "label": "H3 Diff & Remainder Matrix"
+          "label": "\u2605 H3 Diff & Remainder Matrix (Hits 978->221 & 221->051)"
         }
       ]
+    },
+    {
+      "transition": "Draw #11 -> Draw #12",
+      "from": "Nagaland State Lottery (221) Ticket: 76C 18221",
+      "to": "Nagaland State Lottery (051) Ticket: 84L 10051",
+      "hits": [
+        {
+          "pattern": "H6_DiffSumPlusOne",
+          "type": "STRAIGHT HIT",
+          "val": "051",
+          "label": "\u2605 H6 Diff-Sum+1 Rule (Hits 221->051 Straight)"
+        },
+        {
+          "pattern": "H3_DiffRem",
+          "type": "STRAIGHT HIT",
+          "val": "051",
+          "label": "\u2605 H3 Diff & Remainder Matrix (Hits 978->221 & 221->051)"
+        }
+      ]
+    },
+    {
+      "transition": "Draw #12 -> Draw #13",
+      "from": "Nagaland State Lottery (051) Ticket: 84L 10051",
+      "to": "Kerala State Lotteries (226) Ticket: RA 494226",
+      "hits": [
+        {
+          "pattern": "H8_OuterSumStep",
+          "type": "STRAIGHT HIT",
+          "val": "226",
+          "label": "\u2605 H8 Outer-Sum Step Rule (Hits 051->226 & 457->226)"
+        },
+        {
+          "pattern": "H12_MirrorStep",
+          "type": "STRAIGHT HIT",
+          "val": "226",
+          "label": "\u2605 H12 Half-Partner Mirror Step (Hits 051->226 & 457->226)"
+        }
+      ]
+    },
+    {
+      "transition": "Draw #13 -> Draw #14",
+      "from": "Kerala State Lotteries (226) Ticket: RA 494226",
+      "to": "Sikkim State Lottery (398) Ticket: 90K 10398",
+      "hits": [
+        {
+          "pattern": "H7_DiffDiffSum",
+          "type": "STRAIGHT HIT",
+          "val": "398",
+          "label": "\u2605 H7 Diff-Diff-Sum Rule (Hits 226->398 Straight)"
+        },
+        {
+          "pattern": "H9_SubAddTen",
+          "type": "STRAIGHT HIT",
+          "val": "398",
+          "label": "\u2605 H9 Sub-Add-10 Rule (Hits 226->398 & 457->226)"
+        },
+        {
+          "pattern": "H11_SumPairPlus",
+          "type": "STRAIGHT HIT",
+          "val": "398",
+          "label": "H11 Sum Pair Plus Rule (Hits 226->398 Straight)"
+        }
+      ]
+    },
+    {
+      "transition": "Draw #14 -> Draw #15",
+      "from": "Sikkim State Lottery (398) Ticket: 90K 10398",
+      "to": "Nagaland State Lottery (500) Ticket: 96G 64500",
+      "hits": []
+    },
+    {
+      "transition": "Draw #15 -> Draw #16",
+      "from": "Nagaland State Lottery (500) Ticket: 96G 64500",
+      "to": "Nagaland State Lottery (053) Ticket: 65G 50053",
+      "hits": [
+        {
+          "pattern": "H13_ZeroSixProduct",
+          "type": "STRAIGHT HIT",
+          "val": "053",
+          "label": "\u2605 H13 Zero-Six Product Tens Rule (Hits 500->053 Straight)"
+        }
+      ]
+    },
+    {
+      "transition": "Draw #16 -> Draw #17",
+      "from": "Nagaland State Lottery (053) Ticket: 65G 50053",
+      "to": "Kerala State Lotteries (615) Ticket: TL 360615",
+      "hits": [
+        {
+          "pattern": "H14_PrefixDiff_615",
+          "type": "STRAIGHT HIT",
+          "val": "615",
+          "label": "\u2605 H14 Prefix-Diff Sandwich 615 Rule (Hits 053->615)"
+        }
+      ]
+    },
+    {
+      "transition": "Draw #17 -> Draw #18",
+      "from": "Kerala State Lotteries (615) Ticket: TL 360615",
+      "to": "Sikkim State Lottery (626) Ticket: 94E 22626",
+      "hits": [
+        {
+          "pattern": "H16_TwinEchoStep",
+          "type": "STRAIGHT HIT",
+          "val": "626",
+          "label": "\u2605 H16 Twin-Echo Step Rule (Hits 615->626 Straight)"
+        }
+      ]
+    },
+    {
+      "transition": "Draw #18 -> Draw #19",
+      "from": "Sikkim State Lottery (626) Ticket: 94E 22626",
+      "to": "Nagaland State Lottery (406) Ticket: 50E 94406",
+      "hits": []
+    },
+    {
+      "transition": "Draw #19 -> Draw #20",
+      "from": "Nagaland State Lottery (406) Ticket: 50E 94406",
+      "to": "Nagaland State Lottery (102) Ticket: 54J 77102",
+      "hits": []
+    },
+    {
+      "transition": "Draw #20 -> Draw #21",
+      "from": "Nagaland State Lottery (102) Ticket: 54J 77102",
+      "to": "Kerala State Lotteries (441) Ticket: MS 495441",
+      "hits": [
+        {
+          "pattern": "H8_OuterSumStep",
+          "type": "STRAIGHT HIT",
+          "val": "441",
+          "label": "\u2605 H8 Outer-Sum Step Rule (Hits 051->226 & 457->226)"
+        }
+      ]
+    },
+    {
+      "transition": "Draw #21 -> Draw #22",
+      "from": "Kerala State Lotteries (441) Ticket: MS 495441",
+      "to": "Sikkim State Lottery (446) Ticket: 96H 49446",
+      "hits": []
+    },
+    {
+      "transition": "Draw #22 -> Draw #23",
+      "from": "Sikkim State Lottery (446) Ticket: 96H 49446",
+      "to": "Nagaland State Lottery (359) Ticket: 45H 14359",
+      "hits": []
+    },
+    {
+      "transition": "Draw #23 -> Draw #24",
+      "from": "Nagaland State Lottery (359) Ticket: 45H 14359",
+      "to": "Nagaland State Lottery (649) Ticket: 66B 02649",
+      "hits": []
+    },
+    {
+      "transition": "Draw #24 -> Draw #25",
+      "from": "Nagaland State Lottery (649) Ticket: 66B 02649",
+      "to": "Kerala State Lotteries (615) Ticket: BB 814615",
+      "hits": []
+    },
+    {
+      "transition": "Draw #25 -> Draw #26",
+      "from": "Kerala State Lotteries (615) Ticket: BB 814615",
+      "to": "Sikkim State Lottery (430) Ticket: 90K 24430",
+      "hits": []
+    },
+    {
+      "transition": "Draw #26 -> Draw #27",
+      "from": "Sikkim State Lottery (430) Ticket: 90K 24430",
+      "to": "Nagaland State Lottery (827) Ticket: 94C 10827",
+      "hits": []
     }
   ]
 }

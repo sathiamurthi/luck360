@@ -1,0 +1,23 @@
+{
+  "last_heartbeat": "2026-09-29 09:29:14",
+  "today": "2026-09-29",
+  "slots": {
+    "1:00 PM": {
+      "status": "UPCOMING",
+      "details": "Scheduled at 01:05 PM (polls every 20m until reflected)"
+    },
+    "3:00 PM": {
+      "status": "UPCOMING",
+      "details": "Scheduled at 03:00 PM (polls every 20m until reflected)"
+    },
+    "6:00 PM": {
+      "status": "UPCOMING",
+      "details": "Scheduled at 06:05 PM (polls every 20m until reflected)"
+    },
+    "8:00 PM": {
+      "status": "UPCOMING",
+      "details": "Scheduled at 08:05 PM (polls every 20m until reflected)"
+    }
+  },
+  "active_action": "Monitoring draw schedule (20m interval active)"
+}

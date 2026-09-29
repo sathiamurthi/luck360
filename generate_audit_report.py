@@ -43,6 +43,20 @@ def generate_report():
                     how_desc = f"1st digit = ({d1}+{d2})%10 = {(d1+d2)%10}, middle = {d3}, 2nd digit {d2} transformed to last"
                 elif "H3" in pat_name:
                     how_desc = f"1st digit = ({d1}-{d2})%10 = {(d1-d2+10)%10}, middle = remainder digit {(d1+d2+d3)%10}, last digit = ({d1}-{d3})%10 = {(d1-d3+10)%10}"
+                elif "H6" in pat_name:
+                    how_desc = f"1st digit = ({d1}-{d2})%10 = {(d1-d2+10)%10}, 2nd digit = ({d1}+{d2}+1)%10 = {(d1+d2+1)%10}, 3rd digit = {d3} kept as it is"
+                elif "H7" in pat_name:
+                    how_desc = f"1st digit = ({d2}+1)%10 = {(d2+1)%10}, 2nd digit = ({d1}-{d2}-1)%10 = {(d1-d2-1+10)%10}, 3rd digit = ({d1}+{d3})%10 = {(d1+d3)%10}"
+                elif "H8" in pat_name:
+                    how_desc = f"1st digit = ({d1}+{d3}+1)%10 = {(d1+d3+1)%10}, 2nd digit = ({d1}+{d3}+1)%10 = {(d1+d3+1)%10}, 3rd digit = ({d2}+1)%10 = {(d2+1)%10}"
+                elif "H9" in pat_name:
+                    how_desc = f"1st digit = ({d3}-{d1}-1)%10 = {(d3-d1-1+10)%10}, 2nd digit = ({d1}+{d3}+1)%10 = {(d1+d3+1)%10}, 3rd digit = (10-{d1})%10 = {(10-d1)%10}"
+                elif "H10" in pat_name:
+                    how_desc = f"1st digit = ({d3}+5)%10 = {(d3+5)%10}, 2nd digit = (9-{d3})%10 = {(9-d3+10)%10}, 3rd digit = ({d3}-1)%10 = {(d3-1+10)%10}"
+                elif "H11" in pat_name:
+                    how_desc = f"1st digit = ({d1}+1)%10 = {(d1+1)%10}, 2nd digit = ({d1}+{d3}+1)%10 = {(d1+d3+1)%10}, 3rd digit = ({d1}+{d3})%10 = {(d1+d3)%10}"
+                elif "H12" in pat_name:
+                    how_desc = f"1st digit = ({d1}+2)%10 = {(d1+2)%10}, 2nd digit = ({d2}-3)%10 = {(d2-3+10)%10}, 3rd digit = ({d3}+5)%10 = {(d3+5)%10}"
                 elif "P1" in pat_name:
                     how_desc = f"Reverse last 2 digits ({d3}{d2}) + difference ({d3}-{d1})%10 = {(d3-d1+10)%10}"
                 elif "H4" in pat_name:
