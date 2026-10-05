@@ -1,0 +1,8 @@
+import io
+content = io.open('script1.js', 'r', encoding='utf-8').read().splitlines()
+print("First lines to delete:")
+for i in range(2918, 2925):
+    print(f"{i+1}: {content[i].encode('ascii', 'ignore').decode('ascii')}")
+print("\nLast lines to delete:")
+for i in range(3053, 3065):
+    print(f"{i+1}: {content[i].encode('ascii', 'ignore').decode('ascii')}")

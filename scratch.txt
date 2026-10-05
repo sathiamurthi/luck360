@@ -1,0 +1,9 @@
+tespace-pre-wrap">Waiting for draw_history.json…</pre>
+ed in SQLite lottery.db &amp; draw_history.json across all state draws</p>
+    const resp = await fetch('draw_history.json?t=' + Date.now());
+p class="text-sm">Waiting for draw_history.json (needs at least 3 draws)…</p>
+').textContent = 'Waiting for draw_history.json (needs at least 3 draws)…'; r
+ try { const r = await fetch('draw_history.json?t=' + Date.now()); if (r.ok) 
+ try { const r = await fetch('draw_history.json?t=' + Date.now()); if (r.ok) 
+const d = await (await fetch('draw_history.json?t=' + Date.now())).json(), ke
+textContent = 'Could not read draw_history.json.'; }

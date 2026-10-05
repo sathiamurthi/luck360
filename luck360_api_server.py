@@ -13,6 +13,8 @@ Combines:
 import os
 import sys
 import json
+import sqlite3
+from fastapi import Request
 from typing import Optional, List, Dict, Any
 from fastapi import FastAPI, Query, HTTPException, Response, Body
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
@@ -115,6 +117,15 @@ async def serve_daemon_status():
         return FileResponse(status_file, media_type="application/json")
     return JSONResponse(content={"status": "Daemon active"})
 
+
+
+@app.get("/script1.js", summary="Main Dashboard Script", tags=["Dashboard"])
+def get_script():
+    try:
+        with open(os.path.join(WORKSPACE_DIR, "script1.js"), "r", encoding="utf-8") as f:
+            return Response(content=f.read(), media_type="application/javascript")
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"script1.js not found: {e}")
 
 @app.get("/kerala.jpeg", summary="Kerala Lottery Header Image", tags=["Dashboard"])
 async def serve_kerala_image():
@@ -427,6 +438,59 @@ async def api_trigger_fetch():
 
 
 # -------------------------------------------------------------
+
+# -------------------------------------------------------------
+# Ticket History Endpoints
+# -------------------------------------------------------------
+
+@app.get("/api/v1/tickets", tags=["Tickets"])
+async def get_tickets():
+    conn = sqlite3.connect(os.path.join(WORKSPACE_DIR, "lottery.db"))
+    conn.row_factory = sqlite3.Row
+    rows = conn.execute("SELECT * FROM tickets ORDER BY id ASC").fetchall()
+    conn.close()
+    
+    result = []
+    for r in rows:
+        d = dict(r)
+        d["rates"] = json.loads(d["rates"]) if d["rates"] else {}
+        d["breakdown"] = json.loads(d["breakdown"]) if d["breakdown"] else []
+        d["repeats"] = bool(d["repeats"])
+        result.append(d)
+    return result
+
+@app.post("/api/v1/tickets", tags=["Tickets"])
+async def save_ticket(request: Request):
+    data = await request.json()
+    conn = sqlite3.connect(os.path.join(WORKSPACE_DIR, "lottery.db"))
+    conn.execute("""
+        INSERT OR REPLACE INTO tickets (id, date, slot, result, cost, win, net, text, rates, repeats, breakdown)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (
+        data.get("id"),
+        data.get("date"),
+        data.get("slot"),
+        data.get("result"),
+        data.get("cost"),
+        data.get("win"),
+        data.get("net"),
+        data.get("text"),
+        json.dumps(data.get("rates", {})),
+        1 if data.get("repeats") else 0,
+        json.dumps(data.get("breakdown", []))
+    ))
+    conn.commit()
+    conn.close()
+    return {"ok": True}
+
+@app.delete("/api/v1/tickets/{ticket_id}", tags=["Tickets"])
+async def delete_ticket(ticket_id: int):
+    conn = sqlite3.connect(os.path.join(WORKSPACE_DIR, "lottery.db"))
+    conn.execute("DELETE FROM tickets WHERE id=?", (ticket_id,))
+    conn.commit()
+    conn.close()
+    return {"ok": True}
+
 # Main Runner
 # -------------------------------------------------------------
 
